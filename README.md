@@ -1,2 +1,5 @@
-# amazon-lex-customerservice-workshop
-Code and walkthrough labs to create a customer service chatbot using Amazon Lex (and integrations with Amazon Connect, Twilio SMS, etc.)
+Amazon Lex Customer Service Workshop
+
+## License
+
+This library is licensed under the Apache 2.0 License. 
