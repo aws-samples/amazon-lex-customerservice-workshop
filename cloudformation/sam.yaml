@@ -1,0 +1,111 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: resources to make up lex bot
+Transform: 'AWS::Serverless-2016-10-31'
+
+Resources:
+  UsersDDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "${AWS::StackName}-Users"
+      AttributeDefinitions:
+      - AttributeName: userId
+        AttributeType: S
+      - AttributeName: phone
+        AttributeType: S
+      KeySchema:
+      - AttributeName: userId
+        KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: '3'
+        WriteCapacityUnits: '3'
+      GlobalSecondaryIndexes:
+      - IndexName:   "phoneindex"
+        KeySchema:
+        - AttributeName: phone
+          KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+        ProvisionedThroughput:
+          ReadCapacityUnits: '3'
+          WriteCapacityUnits: '3'
+
+  UserTravelPlansDDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+#      TableName: !Sub "${AWS::StackName}-UserTravelPlans"
+      AttributeDefinitions:
+      - AttributeName: userId
+        AttributeType: S
+      - AttributeName: country
+        AttributeType: S
+      KeySchema:
+      - AttributeName: userId
+        KeyType: HASH
+      - AttributeName: country
+        KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: '3'
+        WriteCapacityUnits: '3'
+
+  TravelPlanCatalogDDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+#      TableName: !Sub "${AWS::StackName}-TravelPlanCatalog"
+      AttributeDefinitions:
+      - AttributeName: country
+        AttributeType: S
+      - AttributeName: planCode
+        AttributeType: S
+      KeySchema:
+      - AttributeName: country
+        KeyType: HASH
+      - AttributeName: planCode
+        KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: '3'
+        WriteCapacityUnits: '3'
+
+
+  AuthenticatedTravelPlanFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: "Lambda handler for travel plan bot"
+      FunctionName: !Sub "${AWS::StackName}-LexBotHandler"
+      CodeUri: ../lambda-functions/bot-handler
+      Runtime: nodejs4.3
+      MemorySize: 256
+      Timeout: 20
+      Handler: index.handler
+      Policies:
+        Statement:
+          - Effect: Allow
+            Action:
+              - dynamodb:*
+            Resource:
+              - "*"
+      Environment:
+        Variables:
+          USER_DDB_TABLE: !Ref UsersDDBTable
+          USER_DDB_TABLE_PHONE_INDEX: "phoneindex"
+          USER_PLAN_DDB_TABLE: !Ref UserTravelPlansDDBTable
+          PLAN_CATALOGUE_DDB_TABLE: !Ref TravelPlanCatalogDDBTable
+
+  CognitoTriggerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: "Lambda function to update the user DDB table when cognito user signs up."
+      CodeUri: ../lambda-functions/cognito-trigger
+      Runtime: nodejs4.3
+      MemorySize: 256
+      Timeout: 20
+      Handler: index.handler
+      Policies:
+        Statement:
+          - Effect: Allow
+            Action:
+              - dynamodb:*
+            Resource:
+              !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${UsersDDBTable}"
+      Environment:
+        Variables:
+          USER_DDB_TABLE: !Ref UsersDDBTable
