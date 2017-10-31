@@ -453,6 +453,10 @@ function verifyIdentityIntent(intentRequest, callback) {
         if (verifyUserResult.result === true) {
             sessionAttributes.identityVerified = true;
             sessionAttributes.loggedInUser = verifyUserResult.userCognitoId;
+
+            if (sessionAttributes.pinAttempt) {
+                delete sessionAttributes.pinAttempt;
+            }
             var message = "Thank you, we have verified your identity. ";
             if (sessionAttributes.intentBeforeVerification === applyPlanIntentName) {
                 delete sessionAttributes.intentBeforeVerification;
@@ -464,6 +468,7 @@ function verifyIdentityIntent(intentRequest, callback) {
                 checkPlanInAccount(sessionAttributes, callback, message);
                 return;
             }
+
             callback(nextIntent(
                 sessionAttributes,
                 {
@@ -476,9 +481,22 @@ function verifyIdentityIntent(intentRequest, callback) {
             if (sessionAttributes.loggedInUser) {
                 delete sessionAttributes.loggedInUser;
             }
-            //TODO customize messaging based on error
-            callback(close(sessionAttributes, 'Failed',
-                {contentType: 'PlainText', content: "Unable to verify your identity. "}));
+            if (sessionAttributes.pinAttempt) {
+                sessionAttributes.pinAttempt = parseInt(sessionAttributes.pinAttempt) + 1;
+            } else {
+                sessionAttributes.pinAttempt = 1;
+            }
+            if (sessionAttributes.pinAttempt > 3) {
+                delete sessionAttributes.pinAttempt;
+                callback(close(sessionAttributes, 'Failed',
+                    {contentType: 'PlainText', content: "Unable to verify your identity. "}));
+            } else {
+                callback(elicitSlot(sessionAttributes, verifyIdentityIntentName, slots, "pin", {
+                    contentType: 'PlainText',
+                    content: "The pin did not match our records, please try again."
+                }));
+            }
+
         }
     }).catch(err => {
         callback(close(sessionAttributes, 'Failed',
