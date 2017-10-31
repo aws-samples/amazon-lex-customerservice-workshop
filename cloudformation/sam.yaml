@@ -66,7 +66,7 @@ Resources:
         WriteCapacityUnits: '3'
 
 
-  AuthenticatedTravelPlanFunction:
+  BotHandlerFunction:
     Type: AWS::Serverless::Function
     Properties:
       Description: "Lambda handler for travel plan bot"
@@ -109,3 +109,29 @@ Resources:
       Environment:
         Variables:
           USER_DDB_TABLE: !Ref UsersDDBTable
+
+  DataLoaderFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: "Lambda function to load the plan catalog."
+      CodeUri: ../lambda-functions/load-data
+      Runtime: nodejs4.3
+      MemorySize: 256
+      Timeout: 20
+      Handler: index.handler
+      Policies:
+        Statement:
+          - Effect: Allow
+            Action:
+              - dynamodb:*
+            Resource:
+              !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TravelPlanCatalogDDBTable}"
+      Environment:
+        Variables:
+          PLAN_CATALOGUE_DDB_TABLE: !Ref TravelPlanCatalogDDBTable
+
+
+  LoadPlanData:
+    Properties:
+      ServiceToken: !GetAtt DataLoaderFunction.Arn
+    Type: "Custom::LoadDynamoDB"

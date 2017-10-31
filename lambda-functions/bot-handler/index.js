@@ -13,14 +13,14 @@ const userDdbTable = process.env.USER_DDB_TABLE;
 const userDdbTablePhoneIndex = process.env.USER_DDB_TABLE_PHONE_INDEX;
 const userplansDdbTable = process.env.USER_PLAN_DDB_TABLE;
 const planCatalogueDdbTable = process.env.PLAN_CATALOGUE_DDB_TABLE;
-const botName = "InternationalPlan";
+//const botName = "InternationalPlan";
 const stubUserId = "stubUser";
 const stubPin = "1234";
 
 const applyPlanIntentName = "ApplyTravelPlan";
 const checkPlanIntentName = "CheckTravelPlan";
 const verifyIdentityIntentName = "VerifyIdentity";
-const listPlanIntentName = "listInternationalPlan";
+const listPlanIntentName = "ListInternationalPlans";
 
 const finishIntentName = "Finish";
 
@@ -565,9 +565,9 @@ exports.handler = (event, context, callback) => {
          * Uncomment this if statement and populate with your Lex bot name, alias and / or version as
          * a sanity check to prevent invoking this Lambda function from an undesired source.
          */
-        if (event.bot.name != botName) {
-            callback('Invalid Bot Name');
-        }
+        // if (event.bot.name != botName) {
+        //     callback('Invalid Bot Name');
+        // }
         dispatch(event, (response) => loggingCallback(response, callback));
     } catch (err) {
         callback(err);

@@ -19,6 +19,38 @@ In later modules, you will try out ways for identifying the customer in a Lex bo
 
 Each of the following sections provide an implementation overview and detailed, step-by-step instructions. The overview should provide enough context for you to complete the implementation if you're already familiar with the AWS Management Console or you want to explore the services yourself without following a walkthrough.
 
+### Prepare resources 
+
+In this step, we will use a CloudfFormation template to provision the AWS Lambda functions, DynamoDB tables, resources we will need in later steps of the workshop.
+
+Region| Region Code | Launch
+------|------|-------
+US East (N. Virginia) |   <span style="font-family:'Courier';">us-east-1</span> | [![Launch Module 1 in us-east-1](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/images/cloudformation-launch-stack-button.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=lex-workshop&templateURL=https://s3.amazonaws.com/lex-customerservice-workshop/setup.yaml)
+
+
+<details>
+<summary><strong>CloudFormation Launch Instructions (expand for details)</strong></summary><p>
+
+1. Click the **Launch Stack** link above.
+
+1. Click **Next** on the Select Template page.
+
+1. Click **Next** on the Specify Details page.
+
+1. On the Options page, leave all the defaults and click **Next**.
+
+1. On the Review page, check the boxes to acknowledge that CloudFormation will create IAM resources.
+
+1. Click **Create Change Set**.
+
+1. Wait for the change set to finish computing changes and click **Execute**
+
+	TODO: add screenshot
+
+
+</p></details>
+
+
 ### Create a Lex bot
 
 Use the Lex Console to create a bot named `InternationalPlan`. 
@@ -85,7 +117,7 @@ Configure a slot `Country` with built-in type `AMAZON.Country` in the intent.
 
 1. Click the (+) sign to add the slot 
  
-	![alt text](images/slot-config.png)
+	![screenshot for after configuring slot](images/slot-config.png)
 
 </details>
 
@@ -97,11 +129,64 @@ Add the following sample utterances to the intent:
 
 * `I'm traveling to ​{Country}​`
 * `List international plans`
-* `List international for {Country}`
+* `List international plans for {Country}`
 * `List travel plans`
 * `List travel plans available`
 * `Tell me about travel plans in ​{Country}​`
-* `What international plans do you have?`
+* `What international plans do you have`
 
+> Note that you don't need to list exhaustively every possible way of saying the same intent, just a few examples so the Amazon Lex deep learning algorithms can "learn".
+
+At this stage, we haven't configured the backend logic to look up actual plan options the user asks for. But we can test how our Lex bot can understand customer requests before we integrate the backend. 
+
+Save the intent, build and test the bot in the Lex Console.  
+
+
+<details>
+<summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
+
+1. Click **Save Intent** to save the intent configuration
+
+1. Click **Build** at the top right of the page to build the bot 
+ 
+1. Once the build complete, use the **Test Bot** window to test different ways customer may ask about international plans for the countries they are traveling to. Verify that the bot is able to detect the intent. 
+
+	In the below example, the user utterance contains the slot value, which Lex was able to detect: 
+
+	![alt text](images/test-utterance-including-slot.png)
+	
+	In this below example, the user didn't tell the country he/she is inquiring about, Lex will use the **prompt** we configured for this slot to get this info from the user: 
+	
+	![alt text](images/test-utterance-with-slot-solicitation.png)
+
+</details>
+
+
+### Fulfill the query with AWS Lambda
+
+Now we have defined the conversational interface, we need to configure the backend logic to fulfill the customer query using **AWS Lambda**. 
+
+The Lambda function that can respond to the international plan customer request is already deployed by CloudFormation in the setup step. (It does so by querying a DynamoDB table pre-populated with fake data, also launched as part of the preparation CloudFormation)
+
+We can configure Lex to send the detected intent and slot values from the user utterance to the `lex-workshop-LexBotHandler` Lambda function.
+
+<details>
+<summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
+
+1. In the **Fulfillment** section of the intent, choose **AWS Lambda function** and use the selector to pick the `lex-workshop-LexBotHandler` function
+	![alt text](images/pick-lambda.png)
+
+1. Click **OK** to give Lex permission to invoke the Lambda function.
+![alt text](images/confirm-lambda-permission.png)
+
+1. Save the intent by clicking **Save intent**
+
+1. Build the bot again by clicking **Build**
+
+1. Test the bot 
+
+![alt text](images/after-lambda-integration.png)
+
+</details>
 
 

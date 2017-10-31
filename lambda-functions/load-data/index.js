@@ -1,6 +1,7 @@
-var fs = require('fs');
+const fs = require('fs');
 const AWS = require('aws-sdk');
 const util = require('util');
+const response = require('cfn-response');
 
 const planCatalogueDdbTable = process.env.PLAN_CATALOGUE_DDB_TABLE;
 const docClient = new AWS.DynamoDB.DocumentClient({
@@ -8,7 +9,15 @@ const docClient = new AWS.DynamoDB.DocumentClient({
 });
 const batchSize = 25;
 
-exports.handler = (event, context, callback) => {
+exports.handler = function (event, context, callback) {
+
+    console.log("Reading input from event:\n", util.inspect(event, {depth: 5}));
+    const input = event.ResourceProperties;
+
+    if (event.RequestType === 'Delete' || event.RequestType === 'Update') {
+        response.send(event, context, response.SUCCESS, {});
+    }
+
     var obj = JSON.parse(fs.readFileSync('MOCK_DATA.json', 'utf8'));
 
     var batchPutPromises = [];
@@ -28,10 +37,10 @@ exports.handler = (event, context, callback) => {
 
     Promise.all(batchPutPromises).then(data => {
         console.log("done loading " + obj.length + " rows.");
-        callback(null, data)
+        response.send(event, context, response.SUCCESS, {});
     }).catch(err => {
         console.error(err);
-        callback(err);
+        response.send(event, context, response.FAILED, err);
     })
 }
 
