@@ -187,6 +187,34 @@ We can configure Lex to send the detected intent and slot values from the user u
 
 	<img src="images/after-lambda-integration.png" width="60%">
 
+1. Feel free to test the voice interaction in the Console as well. 
+
 </details>
 
+It's also valuable to understand what data is being passed to your Lambda function. Take a look at the `lex-workshop-LexBotHandler` function's **CloudWatch Logs** 
+
+<details>
+<summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
+
+1. Go to the Lambda [console](https://console.aws.amazon.com/lambda/home)
+
+1. Find the `lex-workshop-LexBotHandler` function and click on it
+
+1. Go to the **Monitoring** tab
+
+1. Click **View logs in CloudWatch**
+
+1. Click on the latest log stream 
+
+1. Find the log line that logs the input into the lambda function:
+
+	![lambda screenshot](images/lambda-cwl.png)
+	
+1. Observe the fields being passed from Lex to Lambda: `userId`, `bot`, `inputTranscript`, name of the intent, and slots identified. See documentation [here](http://docs.aws.amazon.com/lex/latest/dg/lambda-input-response-format.html) on detailed explanation of all available fields.
+
+</details>
+
+
+
+After you have verified your bot is answering questions correctly and checked out the lambda execution logs, move onto the next module: [Handle customer requests to subscribe to services](../02_LexBotSubscribeService)
 

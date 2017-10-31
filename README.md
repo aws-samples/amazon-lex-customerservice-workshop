@@ -21,7 +21,7 @@ In order to complete this workshop you'll need an AWS Account with sufficient pe
 This workshop is broken up into multiple modules. For building out your Lex chatbot, you must complete the following module in order before proceeding to the next:
 
 1. [Build a Lex chatbot and handle informational queries](01_LexBotInformational)
-1. [Handle customer requests to authenticate and subscribe to services](02_LexBotSubscribeService)
+1. [Handle customer requests to subscribe to services](02_LexBotSubscribeService)
 
 Once you have a working Lex chatbot, you can choose to complete one or more of the following modules to integrate your Lex chatbot to different channels to interface with your customer:
 
