@@ -153,12 +153,12 @@ Save the intent, build and test the bot in the Lex Console.
 
 	In the below example, the user utterance contains the slot value, which Lex was able to detect: 
 
-	![alt text](images/test-utterance-including-slot.png)
-	
+	<img src="images/test-utterance-including-slot.png" alt="" width="60%">
+
 	In this below example, the user didn't tell the country he/she is inquiring about, Lex will use the **prompt** we configured for this slot to get this info from the user: 
 	
-	![alt text](images/test-utterance-with-slot-solicitation.png)
-
+	<img src="images/test-utterance-with-slot-solicitation.png" alt="" width="60%">
+	
 </details>
 
 
@@ -177,7 +177,7 @@ We can configure Lex to send the detected intent and slot values from the user u
 	![alt text](images/pick-lambda.png)
 
 1. Click **OK** to give Lex permission to invoke the Lambda function.
-![alt text](images/confirm-lambda-permission.png)
+	![alt text](images/confirm-lambda-permission.png)
 
 1. Save the intent by clicking **Save intent**
 
@@ -185,7 +185,7 @@ We can configure Lex to send the detected intent and slot values from the user u
 
 1. Test the bot 
 
-![alt text](images/after-lambda-integration.png)
+	<img src="images/after-lambda-integration.png" width="60%">
 
 </details>
 
