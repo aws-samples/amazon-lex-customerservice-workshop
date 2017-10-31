@@ -189,8 +189,8 @@ function listPlanIntent(intentRequest, callback) {
             } else {
                 msg += `and ${item.callMinutesIncluded} text messages. `
             }
-            msg += "Would you like to apply one of these plans to your account? "
         }
+        msg += "Would you like to apply one of these plans to your account? "
         callback(nextIntent(
             sessionAttributes,
             {
