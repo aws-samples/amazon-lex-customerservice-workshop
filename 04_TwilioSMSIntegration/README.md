@@ -1,59 +1,53 @@
-# Module 1: The first example module
+# Module 3: Integrate Amazon Lex with Twilio Programmable SMS 
 
-This is an example module. The page title should include the module number and a short but descriptive title.
+Amazon Lex offers built-in integration with Facebook, Slack and Twilio. In this module you will integrate your Lex bot with Twilio Programmable SMS platform. With this integraton you will be able to interact with your Lex bot through an SMS service. To achieve this you will have to create a Twilio trial account and set up a Twilio SMS-enabled phone number where users can send SMS messages to interact with your bot. 
 
-You should provide an introductory paragraph that sets some context for the use case to be covered. If possible this should tie into the Wild Rydes theme/company story.
+## Implementation Instructions
 
-You should also provide instructions here for launching a CloudFormation template that allows students to skip ahead to the next module. You should host your templates in local S3 buckets in each supported region and provide a table with links for launching the templates in each region:
+Each of the following sections provide an implementation overview and detailed, step-by-step instructions. The overview should provide enough context for you to complete the implementation if you're already familiar with the AWS Management Console and Twilio or you want to explore the services yourself without following a walkthrough.
 
+### Signup for a new Twilio trial account
+Start with signing up for a Trial twilio account 
+[here](https://www.twilio.com/try-twilio) 
 
-Region| Launch
-------|-----
-US East (N. Virginia) | [![Launch Module 1 in us-east-1](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/images/cloudformation-launch-stack-button.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=your-stack-name&templateURL=https://s3.amazonaws.com/wildrydes-us-east-1/WorkshopTemplate/1_ExampleTemplate/example.yaml)
-US West (Oregon) | [![Launch Module 1 in us-west-2](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/images/cloudformation-launch-stack-button.png)](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=your-stack-name&templateURL=https://s3.amazonaws.com/wildrydes-us-west-2/WorkshopTemplate/1_ExampleTemplate/example.yaml)
+Next, set up a Twilio SMS-enabled phone number where users can send SMS messages to interact with your bot. If you don’t already have a Twilio account, you can sign-up for a trial account, which includes a free phone number. Make sure that your Twilio number has SMS capability turned on, and that you verify your own phone number with Twilio for testing. Remember, Twilio trial account has some limitations for example for the phone number you choose you will be able to interact with verified phone numbers only. Which means in order to test you bot with Twilio integration you have to verify your phone number by adding to Verified Caller ID's in the Twilio console.
+
+On the Twilio Console Dashboard, note your Twilio AUTH TOKEN and the Twilio AUTH ID. You will be needing this information later.
 
 <details>
-<summary><strong>CloudFormation Launch Instructions (expand for details)</strong></summary><p>
+<summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
-1. Click the **Launch Stack** link above for the region of your choice.
+1. Once you sign up for the trial account, Take a note of the  Twilio AUTH TOKEN and the Twilio AUTH ID listed in the home Dashboard page.
+2. Pick up a phone number. This phone number will be the SMS phone number which your bot users will use to interact with the lex bot you created.
+3. Go to the home dashboard and then click on the manage phone number option.
+4. Next click on the Verified Caller IDs section and verify your individual phone number with which you will be sending an SMS. This is your personnel phone number.
+</p></details>
 
-1. Click **Next** on the Select Template page.
+### Integrate the Twilio Messaging Service Endpoint with the Amazon Lex Bot 
+To associate the Amazon Lex bot with your Twilio programmable SMS endpoint, activate bot channel association in the Amazon Lex console. When the bot channel association has been activated, Amazon Lex returns a callback URL. Record this callback URL because you need it later.
+<details>
+<summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
-1. Provide a globally unique name for the **Website Bucket Name** such as `wildrydes-yourname` and click **Next**.
-    ![Speficy Details Screenshot](../images/module1-cfn-specify-details.png)
+1. Open the [Amazon Lex console](https://console.aws.amazon.com/lex/home?region=us-east-1) and Choose the Amazon Lex bot that you created in this workshop.
+2. Choose the **Channels** tab.
+3. In the **Chatbots section**, choose **Twilio SMS**.
+4. In the **Twilio SMS** page provide the following information.
+	* Type a name. For example, BotTwilioAssociation.
+	* Choose "aws/lex" from KMS key.
+	* For Alias, choose the bot alias you created earlier.
+	* For Authentication Token, type the AUTH TOKEN for your Twilio account.
+	* Choose Activate. On activating this you will have a Channel endpoint created for Twilio. Take a note of this endpoint.
+![Alt text](http://docs.aws.amazon.com/lex/latest/dg/images/twilio-10a.png "Optional title")
 
-1. On the Options page, leave all the defaults and click **Next**.
-
-1. On the Review page, check the box to acknowledge that CloudFormation will create IAM resources and click **Create**.
-    ![Acknowledge IAM Screenshot](../images/cfn-ack-iam.png)
-
-    This template uses a custom resource to copy the static website assets from a central S3 bucket into your own dedicated bucket. In order for the custom resource to write to the new bucket in your account, it must create an IAM role it can assume with those permissions.
-
-1. Wait for the `wildrydes-webapp-1` stack to reach a status of `CREATE_COMPLETE`.
-
-1. With the `wildrydes-webapp-1` stack selected, click on the **Outputs** tab and click on the WebsiteURL link.
-
-1. Verify the Wild Rydes home page is loading properly and move on to the next module, [User Management](../2_UserManagement).
+5. Once the Amazon Lex part is setup. On the Twilio console, we connect the Twilio SMS endpoint to the Amazon Lex bot.
+6. Login to your Twilio again. Go to Managed Numbers Screen again.
+7. Under the Active number screen, Messeging tab update the webhook to the Channel endpoint you received once you activated the channed in the Amazon Lex console.
+![Alt text](https://s3.amazonaws.com/lexworkshop/twilio2.png "Optional title")
 
 </p></details>
 
 
-## Solution Architecture
 
-Provide a description and architecture diagram for the solution that the students will build. Consider including a diagram and short description of the components that are created by the baseline CloudFormation template in addition to the final architecture so that students are clear on which components they will be responsible for building.
 
-## Implementation Overview
 
-This section should provide students with the high level steps required to complete the solution. It should enumerate all the components and major configuration tasks required, but should not get to the detail of providing step-by-step instructions for which console buttons to click, etc.
 
-Sample:
-
-The following provides an overview of the steps needed to complete this module. This section is intended to provide enough details to complete the module for students who are already familiar with the AWS console and CLI. If you'd like detailed, step-by-step instructions, please use the heading links to jump to the appropriate section.
-
-*Create an S3 Bucket* - Use the console or CLI to create an S3 bucket. If you'd like to use a custom domain to host the site make sure you name your bucket using the full domain name (e.g. wildrydesdemo.example.com). Read more about custom domain names for S3 buckets here.
-
-*Upload content* - Copy the content from the example bucket, xyz. There is also a zip archive available at xyz that you can download locally and extract in order to upload the content via the console.
-
-*Add a bucket policy to allow public reads* - Bucket policies can be updated via the console or CLI. You can use the provided policy document or build your own. See the documentation for more information.
-
-*Enable public web hosting*
