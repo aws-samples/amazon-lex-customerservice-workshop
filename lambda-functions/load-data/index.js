@@ -14,7 +14,7 @@ exports.handler = function (event, context, callback) {
     console.log("Reading input from event:\n", util.inspect(event, {depth: 5}));
     const input = event.ResourceProperties;
 
-    if (event.RequestType === 'Delete' || event.RequestType === 'Update') {
+    if (event.RequestType === 'Delete') {
         response.send(event, context, response.SUCCESS, {});
     }
 
