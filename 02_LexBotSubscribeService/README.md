@@ -118,7 +118,7 @@ In the last module, we used AWS Lambda to fulfill user's intent. Another powerfu
 
 Here are a few things this feature can help with our `ApplyTravelPlan` intent
 
-* As soon as Lex recognize user's intent to subscribe to a plan, the Lambda function can check if the user has been authenticated (through [session attributes](#session-context)). If not, force the user to verify their identity before proceeding
+* As soon as Lex recognize user's intent to subscribe to a plan, the Lambda function can check if the user has been authenticated (through [session attributes](#session-context)). If not, **force the user to verify their identity before proceeding**
 
 * Validate the `startDate` user specified is later than today's date
 
@@ -126,36 +126,40 @@ Here are a few things this feature can help with our `ApplyTravelPlan` intent
 
 * Validate there's a corresponding plan for user's specified country.    
 
-Now, configure the `lex-workshop-LexBotHandler` function for input validation for this intent: 
+Now, configure the `lex-workshop-LexBotHandler` function for input validation for this intent.
 
 <details>
-	<summary><strong> Expand for detailed instruction </strong></summary><p>
+<summary><strong> Expand for detailed instruction </strong></summary><p>
+	
+1. Under **Lambda initialization and validation** setting for the intent, pick the `lex-workshop-LexBotHandler` lambda function
+	
+	<img src="images/validation-lambda.png" alt="configure validation lambda screenshot" width="70%">
+	
+1. Click **Save Intent** to save the intent configuration
+	
+1. Build the bot and test it again. Note that the lambda validation is kicking in to force the user to verify their identity before proceeding:
+	
+	<img src="images/force-authentication-demo.png" alt="test bot that enforces authentication" width="50%">
+		
 </details>
-TODO
-<img src="images/validation-lambda.png" alt="configure validation lambda screenshot" width="70%">
-
-Build and test the bot again. Note that the lambda validation is kicking in to force the user to verify their identity before proceeding:
-
-<img src="images/force-authentication-demo.png" alt="test bot that enforces authentication" width="60%">
 
 
 ### Add intent to verify user identity  
 
 As discussed in the [Identifying and authenticating the user](#user-auth) section, if your user is interacting with your bot through a phone, the bot can look up their phone number and verify their identity by challenging them with one or more security questions. In this workshop we will use a four-digit PIN. 
 
-To handle the identity verification flow, we need to create a new intent: 
+To handle the identity verification flow, create a new intent with a slot for user pin. 
+
+<details>
+<summary><strong> Expand for detailed instruction </strong></summary><p>
 
 1. Create a new intent `VerifyIdentity`
 
-1. Create a `pin` slot with a built-in slot type `AMAZON.FOUR_DIGIT_NUMBER`
-
-	<details>
-	<summary><strong> Expand for detailed instruction </strong></summary><p>
-	</details>
+1. Create a `pin` slot with a built-in slot type `AMAZON.FOUR_DIGIT_NUMBER` with a prompt `What's your user pin?`
 
 	<img src="images/pin-slot.png" alt="configure the pin slot" width="100%">
 
-1. Add sample utterances:
+1. Add sample utterances for the intent:
 
 	```
 	{pin}
@@ -163,13 +167,47 @@ To handle the identity verification flow, we need to create a new intent:
 	verify my identity
 	```
 
-1. Configure Lambda fulfillment
+1. Configure `lex-workshop-LexBotHandler` lambda function for intent fulfillment: 
 
-1. Test 
+	<img src="images/configure-identify-intent.png" alt="configure the pin slot" width="100%">
+
+1. Save the intent 
+
+1. Build the bot
+</details>
 
 
+> Note for testing the bot in Lex Console: 
+> 
+> When the lex bot is integrated with phone call (Amazon Connect) or SMS text (Twilio), the user pin verification logic in the lambda function uses the phone number of the user to look up the user and verify the corresponding pin in the database.
+> 
+> In the bot testing window of the Lex Console, the userid is randomly generated and there's no "phone number" we can use to look up the user. To test the conversation flow during development, use the fake pin `1234`
+
+   
 ### Test full flow
 
+Now we have configured 3 intents:
+
+* `ListInternationalPlans` - for users to inquire travel options they can add to phone plan
+* `ApplyTravelPlan` - for applying a user's selected travel plan to their account
+* `VerifyIdentity` - for verifying user's identity
+
+We can now test how these 3 intents can work together to provide a streamlined customer experience:
+
+<img src="images/test-full-flow.png" alt="configure the pin slot" width="50%">
+
+Note that by leveraging [session attributes](#session-context), the Lex bot is able to transition between different intents and "remember" what information user has already provided. In the above example, after user authentication, the bot is able to pick up where it left off and continue with fulfilling the intent to add the plan to user's account. 
+<details>
+<summary><strong> For detailed explanation on how this works, expand here</strong></summary><p>
+
+If we take a look at the **Inspect Response** tab at this point, notice the below: 
+
+* After verifying the user, the bot remembers the user was in progress to add a plan, and set the `intentName` to `ApplyTravelPlan` (see yellow highlight)
+* After verifying the user, the bot sets the `sessionAttributes` to mark the logged in user (see red highlight)
+* After verifying the user, the bot identified inputs already provided by user in previous intents (e.g. `Country` and `planName`) and prompt the user to collect information that haven't been provided (see green highlight)
+
+<img src="images/test-full-flow-inspect.png" alt="configure the pin slot" width="50%">
+</details>
 
 
 ### Cognito 
