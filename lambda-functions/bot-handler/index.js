@@ -173,7 +173,7 @@ function listPlanIntent(intentRequest, callback) {
         var msg = `There are ${data.Count} plans for ${country}. `
         for (var i = 0; i < data.Count; i++) {
             let item = data.Items[i];
-            msg += `Plan ${item.planCode} is $${item.planPrice} per month. `
+            msg += `${item.planName} plan is $${item.planPrice} per month. `
             if (item.isDataUnlimited) {
                 msg += `It includes unlimited data, `
             } else {
@@ -190,7 +190,7 @@ function listPlanIntent(intentRequest, callback) {
                 msg += `and ${item.callMinutesIncluded} text messages. `
             }
         }
-        msg += "Would you like to apply one of these plans to your account? "
+        msg += "Which plan would you like to add to your account? "
         callback(nextIntent(
             sessionAttributes,
             {
@@ -262,7 +262,7 @@ function checkPlanInAccount(sessionAttributes, callback, responsePrefix) {
 
 function applyPlan(slots, sessionAttributes, callback) {
     let country = toUpper(slots.Country ? slots.Country : sessionAttributes.country);
-    let plan = slots.planCode;
+    let plan = slots.planName;
     console.log("plan to apply: " + plan + " for country: " + country);
 
     let user = getVerifiedUser(sessionAttributes);
@@ -297,7 +297,7 @@ function applyPlan(slots, sessionAttributes, callback) {
                 Item: {
                     userId: user,
                     country: country,
-                    planCode: plan,
+                    planName: plan,
                     startDate: startDate,
                     endDate: endDate
                 }
@@ -319,7 +319,7 @@ function applyPlan(slots, sessionAttributes, callback) {
 }
 
 function describePlan(item) {
-    return "plan " + item.planCode + " for " + item.country +
+    return item.planName + " plan " + " for " + item.country +
         " starting from " + item.startDate + " to " + item.endDate;
 }
 
@@ -328,16 +328,17 @@ function applyPlanIntent(intentRequest, callback) {
     const slots = intentRequest.currentIntent.slots;
     const sessionAttributes = intentRequest.sessionAttributes || {};
 
+    if (!isUserVerified(sessionAttributes)) {
+        sessionAttributes.intentBeforeVerification = applyPlanIntentName;
+        if (slots.planName) {
+            sessionAttributes.planToApply = slots.planName;
+        }
+        requestUserVerification(callback, sessionAttributes);
+        return;
+    }
+
     if (intentRequest.invocationSource == "DialogCodeHook") {
         // first check if the user identity verified
-        if (!isUserVerified(sessionAttributes)) {
-            sessionAttributes.intentBeforeVerification = applyPlanIntentName;
-            if (slots.planCode) {
-                sessionAttributes.planToApply = slots.planCode;
-            }
-            requestUserVerification(callback, sessionAttributes);
-            return;
-        }
 
         // is country supplied?
         if (!slots.Country && !sessionAttributes.country) {
@@ -420,7 +421,7 @@ function validateApplyPlanInputs(sessionAttributes, slots) {
                 if (!isValid) {
                     resolve(buildValidationResult(false, 'Country', `We currently do not support ${slots.Country}. Do you want try a different country?`));
                 } else {
-                    //TODO: check planCode is valid
+                    //TODO: check planName is valid
                     if (slots.startDate != null && !isValidDate(slots.startDate)) {
                         resolve(buildValidationResult(false, 'startDate', `The date you specified, ${slots.startDate}, is not valid. Please specify a exact start date later than today.`));
                     }
@@ -446,7 +447,7 @@ function requestUserVerification(callback, sessionAttributes) {
 }
 
 function verifyIdentityIntent(intentRequest, callback) {
-    const slots = intentRequest.currentIntent.slots;
+    var slots = intentRequest.currentIntent.slots;
     const sessionAttributes = intentRequest.sessionAttributes || {};
 
     verifyUser(sessionAttributes, slots).then(verifyUserResult => {
@@ -460,8 +461,30 @@ function verifyIdentityIntent(intentRequest, callback) {
             var message = "Thank you, we have verified your identity. ";
             if (sessionAttributes.intentBeforeVerification === applyPlanIntentName) {
                 delete sessionAttributes.intentBeforeVerification;
-                message += "You have asked to apply travel plan to your account. "
+                slots = {numOfWeeks: null, startDate: null};
+                if (sessionAttributes.country) {
+                    slots.Country = sessionAttributes.country;
+                    delete sessionAttributes.country;
+                }
 
+                if (sessionAttributes.planToApply) {
+                    slots.planName = sessionAttributes.planToApply;
+                    delete sessionAttributes.planToApply;
+                    message += `You have asked to apply ${slots.planName} plan to your account. When do you like  ${slots.planName} plan to start?`
+                    callback(elicitSlot(sessionAttributes, applyPlanIntentName, slots, 'startDate', {
+                        'contentType': 'PlainText',
+                        'content': message
+                    }));
+                    return;
+
+                } else {
+                    message += "You have asked to apply travel plans to your account. Which plan would you like to apply?"
+                    callback(elicitSlot(sessionAttributes, applyPlanIntentName, slots, 'planName', {
+                        'contentType': 'PlainText',
+                        'content': message
+                    }));
+                    return;
+                }
             } else if (sessionAttributes.intentBeforeVerification === checkPlanIntentName) {
                 delete sessionAttributes.intentBeforeVerification;
                 message += "You have asked to check travel plans in your account. "

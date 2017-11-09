@@ -54,12 +54,12 @@ Resources:
       AttributeDefinitions:
       - AttributeName: country
         AttributeType: S
-      - AttributeName: planCode
+      - AttributeName: planName
         AttributeType: S
       KeySchema:
       - AttributeName: country
         KeyType: HASH
-      - AttributeName: planCode
+      - AttributeName: planName
         KeyType: RANGE
       ProvisionedThroughput:
         ReadCapacityUnits: '3'
