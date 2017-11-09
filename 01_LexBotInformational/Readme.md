@@ -45,6 +45,8 @@ US East (N. Virginia) |   <span style="font-family:'Courier';">us-east-1</span> 
 
 1. Wait for the change set to finish computing changes and click **Execute**
 
+1. Let the CloudFormation launch resources in the background, you don't need to wait for it to finish before proceeding to the next step. 
+
 	TODO: add screenshot
 
 
@@ -187,9 +189,12 @@ We can configure Lex to send the detected intent and slot values from the user u
 
 	<img src="images/after-lambda-integration.png" width="60%">
 
+	> The plan data are randomly generated and loaded into a dynamoDB table by the CloudFormation. It might not always make economic sense. 
+
 1. Feel free to test the voice interaction in the Console as well. 
 
 </details>
+
 
 It's also valuable to understand what data is being passed to your Lambda function. Take a look at the `lex-workshop-LexBotHandler` function's **CloudWatch Logs** 
 
