@@ -135,6 +135,7 @@ Add the following sample utterances to the intent:
 * `List travel plans`
 * `List travel plans available`
 * `Tell me about travel plans in ​{Country}​`
+* `I want to know about travel plans in ​{Country}​`
 * `What international plans do you have`
 
 > Note that you don't need to list exhaustively every possible way of saying the same intent, just a few examples so the Amazon Lex deep learning algorithms can "learn".
@@ -176,7 +177,8 @@ We can configure Lex to send the detected intent and slot values from the user u
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
 1. In the **Fulfillment** section of the intent, choose **AWS Lambda function** and use the selector to pick the `lex-workshop-LexBotHandler` function
-	![alt text](images/pick-lambda.png)
+	
+	<img src="images/pick-lambda.png" alt="" width="60%">
 
 1. Click **OK** to give Lex permission to invoke the Lambda function.
 	![alt text](images/confirm-lambda-permission.png)
@@ -187,7 +189,7 @@ We can configure Lex to send the detected intent and slot values from the user u
 
 1. Test the bot 
 
-	<img src="images/after-lambda-integration.png" width="60%">
+	<img src="images/after-lambda-integration.png" width="50%">
 
 	> The plan data are randomly generated and loaded into a dynamoDB table by the CloudFormation. It might not always make economic sense. 
 
