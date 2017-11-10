@@ -149,7 +149,8 @@ function finishIntent(intentRequest, callback) {
 function listPlanIntent(intentRequest, callback) {
     const slots = intentRequest.currentIntent.slots;
     const sessionAttributes = intentRequest.sessionAttributes || {};
-    var country = toUpper(slots.Country);
+    var country = standardizeCountryName(slots.Country);
+
     sessionAttributes.country = country;
     var params = {
         TableName: planCatalogueDdbTable,
@@ -170,27 +171,31 @@ function listPlanIntent(intentRequest, callback) {
                 }));
             return;
         }
-        var msg = `There are ${data.Count} plans for ${country}. `
+        var msg = `We have ${data.Count} plans for ${country}. `
         for (var i = 0; i < data.Count; i++) {
             let item = data.Items[i];
-            msg += `${item.planName} plan is $${item.planPrice} per month. `
-            if (item.isDataUnlimited) {
-                msg += `It includes unlimited data, `
+            msg += `${item.planName} is $${item.planPrice} `
+            if (item.planName === "Premium") {
+                msg += "with unlimited data, call and text. "
             } else {
-                msg += `It includes ${item.dataIncluded} Gigabytes of data, `
-            }
-            if (item.isCallUnlimited) {
-                msg += `unlimited call, `
-            } else {
-                msg += `${item.callMinutesIncluded} minutes of call, `
-            }
-            if (item.isTextUnlimited) {
-                msg += `and unlimited text. `
-            } else {
-                msg += `and ${item.callMinutesIncluded} text messages. `
+                if (item.isDataUnlimited) {
+                    msg += `with unlimited data, `
+                } else {
+                    msg += `with ${item.dataIncluded} GB data, `
+                }
+                if (item.isCallUnlimited) {
+                    msg += `unlimited call, `
+                } else {
+                    msg += `${item.callMinutesIncluded} call minutes, `
+                }
+                if (item.isTextUnlimited) {
+                    msg += `unlimited text. `
+                } else {
+                    msg += `${item.callMinutesIncluded} texts. `
+                }
             }
         }
-        msg += "Which plan would you like to add to your account? "
+        msg += "Which plan would you like to add?"
         callback(nextIntent(
             sessionAttributes,
             {
@@ -410,13 +415,25 @@ function isValidNumOfWeek(numOfWeeks) {
     }
 }
 
+function standardizeCountryName(country) {
+    var cleanCountry = toUpper(country);
+    if (cleanCountry == "Uk" || cleanCountry == "Britain") {
+        return "United Kingdom";
+    }
+    if (cleanCountry == "Us" || cleanCountry == "Usa") {
+        return "United States";
+    }
+    return cleanCountry;
+}
+
 function validateApplyPlanInputs(sessionAttributes, slots) {
     return new Promise((resolve, reject) => {
-        if (sessionAttributes.country) {
-            slots.Country = sessionAttributes.country;
-            delete sessionAttributes.country;
-        }
-        slots.Country = toUpper(slots.Country);
+        // if (sessionAttributes.country) {
+        //     slots.Country = sessionAttributes.country;
+        //     delete sessionAttributes.country;
+        // }
+        moveCountryFromSessionToSlot(sessionAttributes, slots);
+        slots.Country = standardizeCountryName(slots.Country);
         if (validateCountry(slots.Country).then(isValid => {
                 if (!isValid) {
                     resolve(buildValidationResult(false, 'Country', `We currently do not support ${slots.Country}. Do you want try a different country?`));
@@ -446,6 +463,12 @@ function requestUserVerification(callback, sessionAttributes) {
         }));
 }
 
+function moveCountryFromSessionToSlot(sessionAttributes, slots) {
+    if (sessionAttributes.country) {
+        slots.Country = sessionAttributes.country;
+        delete sessionAttributes.country;
+    }
+}
 function verifyIdentityIntent(intentRequest, callback) {
     var slots = intentRequest.currentIntent.slots;
     const sessionAttributes = intentRequest.sessionAttributes || {};
@@ -461,16 +484,22 @@ function verifyIdentityIntent(intentRequest, callback) {
             var message = "Thank you, we have verified your identity. ";
             if (sessionAttributes.intentBeforeVerification === applyPlanIntentName) {
                 delete sessionAttributes.intentBeforeVerification;
-                slots = {numOfWeeks: null, startDate: null};
-                if (sessionAttributes.country) {
-                    slots.Country = sessionAttributes.country;
-                    delete sessionAttributes.country;
+                slots = {numOfWeeks: null, startDate: null, Country: null, planName: null};
+                if (!sessionAttributes.country) {
+                    message += "You have asked to apply travel plans to your account. Which country are you traveling to?"
+                    callback(elicitSlot(sessionAttributes, applyPlanIntentName, slots, 'Country', {
+                        'contentType': 'PlainText',
+                        'content': message
+                    }));
+                    return;
+                } else {
+                    moveCountryFromSessionToSlot(sessionAttributes, slots);
                 }
 
                 if (sessionAttributes.planToApply) {
                     slots.planName = sessionAttributes.planToApply;
                     delete sessionAttributes.planToApply;
-                    message += `You have asked to apply ${slots.planName} plan to your account. When do you like  ${slots.planName} plan to start?`
+                    message += `You have asked to apply ${slots.planName} plan for ${slots.Country} to your account. When do you like ${slots.planName} plan to start?`
                     callback(elicitSlot(sessionAttributes, applyPlanIntentName, slots, 'startDate', {
                         'contentType': 'PlainText',
                         'content': message
@@ -644,5 +673,6 @@ function dispatch(intentRequest, callback) {
 
 
 function loggingCallback(response, originalCallback) {
+    console.log("lambda response:\n", JSON.stringify(response, null, 2));
     originalCallback(null, response);
 }
