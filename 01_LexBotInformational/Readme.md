@@ -156,11 +156,11 @@ Save the intent, build and test the bot in the Lex Console.
 
 	In the below example, the user utterance contains the slot value, which Lex was able to detect: 
 
-	<img src="images/test-utterance-including-slot.png" alt="" width="60%">
+	<img src="images/test-utterance-including-slot.png" alt="" width="50%">
 
 	In this below example, the user didn't tell the country he/she is inquiring about, Lex will use the **prompt** we configured for this slot to get this info from the user: 
 	
-	<img src="images/test-utterance-with-slot-solicitation.png" alt="" width="60%">
+	<img src="images/test-utterance-with-slot-solicitation.png" alt="" width="50%">
 	
 </details>
 
@@ -198,6 +198,9 @@ We can configure Lex to send the detected intent and slot values from the user u
 </details>
 
 
+### Check execution logs for Lambda
+
+
 It's also valuable to understand what data is being passed to your Lambda function. Take a look at the `lex-workshop-LexBotHandler` function's **CloudWatch Logs** 
 
 <details>
@@ -221,6 +224,7 @@ It's also valuable to understand what data is being passed to your Lambda functi
 
 </details>
 
+### Next module
 
 
 After you have verified your bot is answering questions correctly and checked out the lambda execution logs, move onto the next module: [Handle customer requests to subscribe to services](../02_LexBotSubscribeService)
