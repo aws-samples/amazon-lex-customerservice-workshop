@@ -261,6 +261,6 @@ Publish the latest version of your lex bot into a **dev** alias
 
 Once you have a working Lex chatbot, you can choose to complete one or more of the following modules to integrate your Lex chatbot to different channels to interface with your customer:
 
-* [Integrate Lex chatbot with Amazon Connect (voice over the phone)](03_AmazonConnectIntegration)
-* [Integrate Lex chatbot with Twilio SMS (text over SMS)](04_TwilioSMSIntegration)
+* [Integrate Lex chatbot with Amazon Connect (voice over the phone)](../03_AmazonConnectIntegration)
+* [Integrate Lex chatbot with Twilio SMS (text over SMS)](../04_TwilioSMSIntegration)
 
