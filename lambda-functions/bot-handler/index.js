@@ -151,7 +151,6 @@ function listPlanIntent(intentRequest, callback) {
     const sessionAttributes = intentRequest.sessionAttributes || {};
     var country = standardizeCountryName(slots.Country);
 
-    sessionAttributes.country = country;
     var params = {
         TableName: planCatalogueDdbTable,
         KeyConditionExpression: 'country = :c',
@@ -160,16 +159,23 @@ function listPlanIntent(intentRequest, callback) {
         }
     };
     docClient.query(params).promise().then(data => {
-        console.log(data);
+        console.log("list plan DDB result", JSON.stringify(data, null, 2));
+
         if (data.Count === 0) {
-            callback(nextIntent(
-                sessionAttributes,
-                {
-                    'contentType': 'PlainText',
-                    'content': `There's no international plans available for ${country}. What other countries are you looking for? `
-                }));
+            // callback(nextIntent(
+            //     sessionAttributes,
+            //     {
+            //         'contentType': 'PlainText',
+            //         'content': `There's no international plans available for ${country}. What other countries are you looking for? `
+            //     }));
+            callback(elicitSlot(sessionAttributes, listPlanIntentName, {Country: null}, "Country", {
+                'contentType': 'PlainText',
+                'content': `There's no international plans available for ${country}. What other countries are you looking for? `
+            }));
             return;
         }
+
+        sessionAttributes.country = country;
         var msg = `We have ${data.Count} plans for ${country}. `
         for (var i = 0; i < data.Count; i++) {
             let item = data.Items[i];
