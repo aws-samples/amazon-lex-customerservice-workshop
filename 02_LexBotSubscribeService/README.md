@@ -101,6 +101,7 @@ Let's start by defining the conversational interface of adding an international 
 	​apply ​{planName}​ plan
 	​apply international plan to my account
 	​apply travel plan to my account
+	​I want to add travel plans to my account
 	```
 
 1. For a request that has impact on the customer's account, you can leverage the **Confirmation Prompt** feature to confirm choices users have made before fulfilling the intent. 
@@ -228,6 +229,7 @@ Now we are ready to fulfill user's request to add plans to their account! Config
 <img src="images/fulfill-plan-configuration.png" alt="configure the pin slot" width="100%">
 
 </details>
+
    
 ### Test full flow
 
@@ -237,7 +239,7 @@ Now we have configured 3 intents:
 * `ApplyTravelPlan` - for applying a user's selected travel plan to their account
 * `VerifyIdentity` - for verifying user's identity
 
-We can now test how these 3 intents can work together to provide a streamlined customer experience:
+We can now test how these intents can work together to provide a streamlined customer experience:
 
 <img src="images/test-full-flow.png" alt="configure the pin slot" width="50%">
 
@@ -251,11 +253,14 @@ If we take a look at the **Inspect Response** tab at this point, notice the belo
 * After verifying the user, the bot sets the `sessionAttributes` to mark the logged in user (see red highlight)
 * After verifying the user, the bot identifies inputs that user has provided in previous intents (e.g. `Country` and `planName`) and prompt the user to collect information that haven't been provided (see green highlight)
 
+
 <img src="images/test-full-flow-inspect.png" alt="configure the pin slot" width="50%">
 </details>
 
-### Publish the bot
-Publish the latest version of your lex bot into a **dev** alias 
+
+See below for an example of a full conversation flow:
+
+<img src="images/full-demo.png" alt="configure the pin slot" width="40%">
 
 ### Next step
 
