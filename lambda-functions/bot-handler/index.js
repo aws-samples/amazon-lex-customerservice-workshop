@@ -159,7 +159,6 @@ function listPlanIntent(intentRequest, callback) {
             ":c": country
         }
     };
-    console.log("here");
     docClient.query(params).promise().then(data => {
         console.log(data);
         if (data.Count === 0) {
@@ -333,6 +332,7 @@ function applyPlanIntent(intentRequest, callback) {
     const slots = intentRequest.currentIntent.slots;
     const sessionAttributes = intentRequest.sessionAttributes || {};
 
+    // first check if the user identity verified
     if (!isUserVerified(sessionAttributes)) {
         sessionAttributes.intentBeforeVerification = applyPlanIntentName;
         if (slots.planName) {
@@ -343,11 +343,15 @@ function applyPlanIntent(intentRequest, callback) {
     }
 
     if (intentRequest.invocationSource == "DialogCodeHook") {
-        // first check if the user identity verified
 
         // is country supplied?
         if (!slots.Country && !sessionAttributes.country) {
             callback(elicitSlot(sessionAttributes, applyPlanIntentName, slots, "Country"));
+        }
+
+        //TODO: do a list plans
+        if (!slots.planName) {
+
         }
 
         // Validate any slots which have been specified.  If any are invalid, re-elicit for their value
@@ -428,10 +432,6 @@ function standardizeCountryName(country) {
 
 function validateApplyPlanInputs(sessionAttributes, slots) {
     return new Promise((resolve, reject) => {
-        // if (sessionAttributes.country) {
-        //     slots.Country = sessionAttributes.country;
-        //     delete sessionAttributes.country;
-        // }
         moveCountryFromSessionToSlot(sessionAttributes, slots);
         slots.Country = standardizeCountryName(slots.Country);
         if (validateCountry(slots.Country).then(isValid => {
@@ -473,7 +473,7 @@ function verifyIdentityIntent(intentRequest, callback) {
     var slots = intentRequest.currentIntent.slots;
     const sessionAttributes = intentRequest.sessionAttributes || {};
 
-    verifyUser(sessionAttributes, slots).then(verifyUserResult => {
+    verifyUser(sessionAttributes, slots, intentRequest).then(verifyUserResult => {
         if (verifyUserResult.result === true) {
             sessionAttributes.identityVerified = true;
             sessionAttributes.loggedInUser = verifyUserResult.userCognitoId;
@@ -569,45 +569,65 @@ function getVerifiedUser(sessionAttributes) {
 }
 
 
-function verifyUser(sessionAttributes, slots) {
+function verifyUser(sessionAttributes, slots, intentRequest) {
     return new Promise((resolve, reject) => {
         if (sessionAttributes.Source && sessionAttributes.Source === "AmazonConnect") {
             const phoneNumber = sessionAttributes.IncomingNumber;
             console.log("incoming phone number", phoneNumber)
-            var params = {
-                TableName: userDdbTable,
-                IndexName: userDdbTablePhoneIndex,
-                KeyConditionExpression: 'phone = :p',
-                ExpressionAttributeValues: {
-                    ':p': phoneNumber
-                }
-            };
-            docClient.query(params).promise().then(data => {
-                if (data.Count === 0) {
-                    resolve(false);
-                    return;
-                }
-                let item = data.Items[0];
-                // comment out because voice recognition of people's name is hard to get right (different spelling of same pronunciation, accents, etc.)
-                // let lastName = item['lastName']
-                // let firstName = item['firstName']
-                // let fullName = firstName.toLowerCase() + " " + lastName.toLowerCase()
-                // if (slots.name.toLowerCase() !== fullName) {
-                //     console.log("name does not match record. expected: [" + fullName + "] ; user input: [" + slots.name.toLowerCase() + "]");
-                //     resolve(false);
-                //     return;
+            const expectedPin = phoneNumber.slice(phoneNumber.length - 4)
+            if (slots.pin !== expectedPin) {
+                console.log("pin mismatch", slots.pin, expectedPin);
+                resolve({result: false});
+            } else {
+                resolve({result: true, userCognitoId: phoneNumber});
+            }
 
-                //TODO : add KMS client side encryption of pin
-                if (slots.pin !== item.pin) {
-                    console.log("pin mismatch");
-                    resolve({result: false});
-                    return;
-                }
-                resolve({result: true, userCognitoId: item.userId});
-            }).catch(err => {
-                console.error(err);
-                reject(err);
-            })
+            // var params = {
+            //     TableName: userDdbTable,
+            //     IndexName: userDdbTablePhoneIndex,
+            //     KeyConditionExpression: 'phone = :p',
+            //     ExpressionAttributeValues: {
+            //         ':p': phoneNumber
+            //     }
+            // };
+            // docClient.query(params).promise().then(data => {
+            //     if (data.Count === 0) {
+            //         resolve(false);
+            //         return;
+            //     }
+            //     let item = data.Items[0];
+            //     // comment out because voice recognition of people's name is hard to get right (different spelling of same pronunciation, accents, etc.)
+            //     // let lastName = item['lastName']
+            //     // let firstName = item['firstName']
+            //     // let fullName = firstName.toLowerCase() + " " + lastName.toLowerCase()
+            //     // if (slots.name.toLowerCase() !== fullName) {
+            //     //     console.log("name does not match record. expected: [" + fullName + "] ; user input: [" + slots.name.toLowerCase() + "]");
+            //     //     resolve(false);
+            //     //     return;
+            //
+            //     //TODO : add KMS client side encryption of pin
+            //     if (slots.pin !== item.pin) {
+            //         console.log("pin mismatch");
+            //         resolve({result: false});
+            //         return;
+            //     }
+            //     resolve({result: true, userCognitoId: item.userId});
+            // }).catch(err => {
+            //     console.error(err);
+            //     reject(err);
+            // })
+        }
+        if (intentRequest.bot.alias.startsWith("twilio")) {
+            const phoneNumber = "+" + intentRequest.userId;
+            console.log("incoming phone number", phoneNumber)
+            const expectedPin = phoneNumber.slice(phoneNumber.length - 4)
+            if (slots.pin !== expectedPin) {
+                console.log("pin mismatch", slots.pin, expectedPin);
+                resolve({result: false});
+            } else {
+                resolve({result: true, userCognitoId: phoneNumber});
+            }
+
         } else {
             // from lex console, no phone number to identity the user.
             if (slots.pin !== stubPin) {
