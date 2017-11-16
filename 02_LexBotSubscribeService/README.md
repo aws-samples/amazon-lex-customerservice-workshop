@@ -280,11 +280,11 @@ You can also verify the user's plan selections are being persisted in DynamoDB b
 
 1. Select the table name starting with `lex-workshop-UserTravelPlansDDBTable`
 
-	<img src="images/ddb-tables.png" alt="configure the pin slot" width="50%">
+	<img src="images/ddb-tables.png" alt="configure the pin slot" width="100%">
 
 1. Verify you see the test user's applied plans and other attributes:
 
-	<img src="images/ddb-user-plans.png" alt="configure the pin slot" width="50%">
+	<img src="images/ddb-user-plans.png" alt="configure the pin slot" width="100%">
 
 </details>
 
@@ -302,7 +302,7 @@ Publish the bot with alias `dev`.
 
 1. Click  **Publish** 
 
-	<img src="images/publish-dev-alias.png" alt="configure the pin slot" width="50%">
+	<img src="images/publish-dev-alias.png" alt="configure the pin slot" width="100%">
 
 
 </details>
