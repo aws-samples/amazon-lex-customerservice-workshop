@@ -89,8 +89,11 @@ Let's start by defining the conversational interface of adding an international 
 		* Use built-in type `AMAZON.NUBMER`
 		* For prompt, use `how many weeks will you need?`
 
-	<img src="images/configure-slots.png" alt="create new slot screenshot" width="100%">
 	</details>
+
+1. Ensure to check the **Required** checkbox for all the 4 slots
+
+	<img src="images/configure-slots.png" alt="create new slot screenshot" width="100%">
 
 1. Add sample utterances:
 
@@ -109,7 +112,9 @@ Let's start by defining the conversational interface of adding an international 
 	<details>
 	<summary><strong> Expand for detailed instruction </strong></summary><p>
 	
-	1. In the **Confirmation Prompt** section, fill in for **Confirm**
+	1. Expand the **Confirmation Prompt** section and click the **Confirmation prompt** check mark
+
+	1. Fill in for **Confirm**
 	
 		```
 		To confirm, you want to apply {planName} plan in {Country} for {numOfWeeks} weeks starting {startDate}, is that right?
@@ -261,6 +266,14 @@ If we take a look at the **Inspect Response** tab at this point, notice the belo
 See below for an example of a full conversation flow:
 
 <img src="images/full-demo.png" alt="configure the pin slot" width="40%">
+
+You can also verify the user's plan selections are being persisted in DynamoDB by checking the DynamoDB table. 
+
+<details>
+<summary><strong> Expand for detailed instruction </strong></summary><p>
+1. Go to the [DynamoDB console]()
+
+</details>
 
 ### Next step
 

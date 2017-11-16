@@ -41,13 +41,14 @@ US East (N. Virginia) |   <span style="font-family:'Courier';">us-east-1</span> 
 
 1. On the Review page, check the boxes to acknowledge that CloudFormation will create IAM resources.
 
+	<img src="images/cloudformation-changeset.png" alt="" width="70%">
+
 1. Click **Create Change Set**.
 
 1. Wait for the change set to finish computing changes and click **Execute**
 
 1. Let the CloudFormation launch resources in the background, you don't need to wait for it to finish before proceeding to the next step. 
 
-	TODO: add screenshot
 
 
 </p></details>
@@ -130,15 +131,18 @@ By providing sample utterances for a given intent, you can teach Amazon Lex diff
 Add the following sample utterances to the intent:
 
 * `I'm traveling to ​{Country}​`
+* `I am going to ​{Country}​`
 * `List international plans`
 * `List international plans for {Country}`
-* `List travel plans`
 * `List travel plans available`
 * `Tell me about travel plans in ​{Country}​`
 * `I want to know about travel plans in ​{Country}​`
+* `What plans are there for ​{Country}​`
 * `What international plans do you have`
 
 > Note that you don't need to list exhaustively every possible way of saying the same intent, just a few examples so the Amazon Lex deep learning algorithms can "learn".
+> 
+> However, if during testing you identified some additional ways to express the intent and Lex doesn't understand it, you can add that as a sample utterance to improve the Lex bot.
 
 At this stage, we haven't configured the backend logic to look up actual plan options the user asks for. But we can test how our Lex bot can understand customer requests before we integrate the backend. 
 
