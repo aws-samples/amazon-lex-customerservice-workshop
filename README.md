@@ -1,14 +1,15 @@
 # Build a customer service chatbot with Amazon Lex
 
-TODO: update 
+Amazon Lex allows you to quickly and easily build sophisticated, natural language, customer service chatbots. 
 
-This directory should be used as a basic template for building new workshops.
+In this workshop, you will build a customer service chatbot for a fictitious telco company. They want to make it really easy for their customers to add an international plan to their existing phone account when their customers travel abroad for business and vacation. 
 
-The primary README.md file in the main workshop directory should contain a brief overview of the topics being covered and set expectations for the student about what they should expect to learn. It should also instruct students to complete the Pre Lab before starting the workshop to ensure they have the appropriate background knowledge and to verify that their environment and AWS account is configured correctly in order for them to successfully complete the modules.
+The application architecture uses [Amazon Lex](https://aws.amazon.com/lex/), [AWS Lambda](https://aws.amazon.com/lambda/) and [Amazon DynamoDB](https://aws.amazon.com/dynamodb/). You will build an Amazon Lex chatbot that understands customers' speech or text inputs. Data about available plans and user's chosen plans are persisted in DynamoDB. AWS lambda functions get triggered by Amazon Lex to execute business logic and interact with the DB layer. You can then connect the Lex chatbot with twilio SMS, which allows users to access your bot over SMS text messages; or Amazon Connect, which allows users to call your customer service number and interact with AI through voice.  
 
-Keep the workshop summary relatively short. One or two paragraphs is fine. Detailed discussion of architectural topics should be done in each module or potentially in a standalone page linked to from the primary landing page.
+See the diagram below for a depiction of the complete architecture.
 
-The main README.md file of your workshop should serve as an appropriate landing page for complete newcomers to the Wild Rydes repo. Expect that there will be links directly to this page and that a self-serve student should be able to easily complete your workshop based on the information and links provided.
+
+<img src="99_resources/architecture_diagram.png" width="100%">
 
 ## Prerequisites
 
