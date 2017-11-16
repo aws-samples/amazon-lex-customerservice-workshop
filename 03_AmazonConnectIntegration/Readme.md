@@ -46,30 +46,36 @@ Before you continue, ensure that you have followed the instructions to configure
 1. In the Amazon Connect Dashboard, use the navigation pane on the left hand side to select **Routing** and **Contact flows**.
 <p>
 ![ContactFlowNavigation](../99_resources/contact_flows_navigation.png)
-<p>
+</p>
 2. In the top right corner select **Create contact flow** to open the contact flow editor.
 3. Provide a name and a description for your new contact flow 
 <p>
 ![ContactFlowNaming](../99_resources/contact_flow_naming.png)
-<p>
+</p>
 4. Expand the **Interact** group of blocks and drag and drop the **Get customer input** block onto the grid.
 5. Expand the **Terminate/Transfer** group of blocks and drag and drop the **Disconnect** block onto the grid.
 6. Wire up the three building blocks as shown in the image below.
 <p>
 ![ContactFlowNaming](../99_resources/contact_flow_wiring.png)
-<p>
+</p>
 7. Double click on the **Get customer input** block to change its configuration. 
 	1. Select **Text to speech (Ad hoc)** and enter a welcome message for your callers as shown in the example below.
 	2. Select **Amazon Lex** input type
 	3. Enter bot name as defined in instructions to set-up Amazon Lex Bot **TODO: ADJUST NAME AND ADD LINK AS APPROPRIATE**
 	4. Set Alias to **$LATEST**
 	5. Click **Save**
+	
 	![ContactFlowNaming](../99_resources/get_customer_input_prompt.png)
+	
 	![ContactFlowNaming](../99_resources/get_customer_input_input.png)
+	
 8. Click on the **down arrow** (![ContactFlowNaming](../99_resources/down.png)) next to the save button and select **Save & Publish**
 9. Confirm publishing of the workflow in selcting the **Save & publish** button.
-</p></details>
-<p>
+</p>
+
+</details>
+
+
 ### Associate contact flow with phone number
 Now you need to associate your new contact flow with your phone number
 <details>
