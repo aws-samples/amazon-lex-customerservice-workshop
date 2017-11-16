@@ -31,10 +31,10 @@ After your Amazon Connect instance is created, choose **Get started** to select 
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
 1. Choose **Get started** to open the Amazon Connect Welcome screen.
-2. Select **Let's go** to claim a phone number.
-3. Select **United States +1**, **Direct Dial**, and choose a phone number from the numbers provided. Select **Next**
-4. Dial the phone number you selected in step 3 from another phone (e.g. your mobile phone) and choose the menu item to connect with an agent. You can then use the Amazon Connect Contact Control Panel located to the side to accept the call.
-5. Select **Continue**. This will open the Amazon Connect console.
+1. Select **Let's go** to claim a phone number.
+1. Select **United States +1**, **Direct Dial**, and choose a phone number from the numbers provided. Select **Next**
+1. Dial the phone number you selected in step 3 from another phone (e.g. your mobile phone) and choose the menu item to connect with an agent. You can then use the Amazon Connect Contact Control Panel located to the side to accept the call.
+1. Select **Continue**. This will open the Amazon Connect console.
 </p></details>
 
 ### Configure contact flow
@@ -44,21 +44,20 @@ Before you continue, ensure that you have followed the instructions to configure
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
 1. In the Amazon Connect Dashboard, use the navigation pane on the left hand side to select **Routing** and **Contact flows**.
-<p>
-![ContactFlowNavigation](../99_resources/contact_flows_navigation.png)
-</p>
-2. In the top right corner select **Create contact flow** to open the contact flow editor.
-3. Provide a name and a description for your new contact flow 
-<p>
-![ContactFlowNaming](../99_resources/contact_flow_naming.png)
-</p>
-4. Expand the **Interact** group of blocks and drag and drop the **Get customer input** block onto the grid.
-5. Expand the **Terminate/Transfer** group of blocks and drag and drop the **Disconnect** block onto the grid.
-6. Wire up the three building blocks as shown in the image below.
-<p>
-![ContactFlowNaming](../99_resources/contact_flow_wiring.png)
-</p>
-7. Double click on the **Get customer input** block to change its configuration. 
+
+	![ContactFlowNavigation](../99_resources/contact_flows_navigation.png)
+
+1. In the top right corner select **Create contact flow** to open the contact flow editor.
+1. Provide a name and a description for your new contact flow 
+	![ContactFlowNaming](../99_resources/contact_flow_naming.png)
+
+1. Expand the **Interact** group of blocks and drag and drop the **Get customer input** block onto the grid.
+1. Expand the **Terminate/Transfer** group of blocks and drag and drop the **Disconnect** block onto the grid.
+1. Wire up the three building blocks as shown in the image below.
+
+	![ContactFlowNaming](../99_resources/contact_flow_wiring.png)
+
+1. Double click on the **Get customer input** block to change its configuration. 
 	1. Select **Text to speech (Ad hoc)** and enter a welcome message for your callers as shown in the example below.
 	2. Select **Amazon Lex** input type
 	3. Enter bot name as defined in instructions to set-up Amazon Lex Bot **TODO: ADJUST NAME AND ADD LINK AS APPROPRIATE**
@@ -69,8 +68,8 @@ Before you continue, ensure that you have followed the instructions to configure
 	
 	![ContactFlowNaming](../99_resources/get_customer_input_input.png)
 	
-8. Click on the **down arrow** (![ContactFlowNaming](../99_resources/down.png)) next to the save button and select **Save & Publish**
-9. Confirm publishing of the workflow in selcting the **Save & publish** button.
+1. Click on the **down arrow** (![ContactFlowNaming](../99_resources/down.png)) next to the save button and select **Save & Publish**
+1. Confirm publishing of the workflow in selcting the **Save & publish** button.
 </p>
 
 </details>
