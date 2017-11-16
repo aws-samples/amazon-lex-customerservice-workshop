@@ -288,6 +288,25 @@ You can also verify the user's plan selections are being persisted in DynamoDB b
 
 </details>
 
+### Publish the bot 
+
+Publish the bot with alias `dev`.
+
+
+<details>
+<summary><strong> Expand for detailed instruction </strong></summary><p>
+
+1. Click **Publish** button (upper right side on the console)
+
+1. Use `dev` for alias
+
+1. Click  **Publish** 
+
+	<img src="images/publish-dev-alias.png" alt="configure the pin slot" width="50%">
+
+
+</details>
+
 ### Next step
 
 Once you have a working Lex chatbot, you can choose to complete one or more of the following modules to integrate your Lex chatbot to different channels to interface with your customer:
