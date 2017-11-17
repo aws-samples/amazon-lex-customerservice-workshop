@@ -22,6 +22,7 @@ On the Twilio Console Dashboard, note your Twilio AUTH TOKEN and the Twilio AUTH
 3. Go to the home dashboard and then click on the manage phone number option.
 4. Next click on the Verified Caller IDs section and verify your individual phone number with which you will be sending an SMS. This is your personnel phone number.
 </p></details>
+
 ### Publish the your Amazon Lex Bot and Create an Alias
 An alias is a pointer to a specific version of an Amazon Lex bot. Use an alias to allow client applications to use a specific version of the bot without requiring the application to track which version that is. Here we will publish a new version of the bot which let's Amazon Lex takes a snapshot copy of the $LATEST version to publish a new version.
 <details>
