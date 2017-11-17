@@ -11,64 +11,70 @@ Each of the following sections provide an implementation overview and detailed, 
 ### Create a new Amazon Conect contact centre instance
 An Amazon Connect instance is the starting point for your contact center.
 
-Use the Amazon Connect console to create a new virtual contact center instance in the us-east-1 (Virgina) region.
+Go to the [Amazon Connect Console](https://console.aws.amazon.com/connect/home?region=us-east-1) to create a new virtual contact center instance in the us-east-1 (Virgina) region.
 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
 1. From the AWS Management Console, choose **Services** then select **Amazon Connect** under Contact Center.
 2. Choose **Add an instance**.
-3. For the Identity management step, choose **Store users within Amazon Connect** and type a domain name to complete **Access URL**. This domain is used in your contact center URL and cannot be changed. Choose **Next step**.
-4. For the Administrator step, you can **skip** this step for now and add an administrator later on.
-5. For the Telephony options step, select **Incoming and Outbound calls**.
-6. For the Data storage step, **keep the default** settings and choose **Next step**.
-7. For the Review and Create step, review your settings and then choose **Create Instance**. 
+3. In Step 1: Identity management, select **Store users within Amazon Connect** and type a domain name (e.g. `{YourFirstName}ContactCentre` to complete **Access URL**. 
+4. Select **Next step**.
+	
+	> The domain name used in your contact center URL needs to be globally unique and cannot be changed.
+	Alternatively Amazon Connect can leverage an existing directory.   
+	
+	
+5. In Step 2: Create an Administrator, select **Skip this**, and select **Next step**. We can add an adminstrator user later.
+6. In Step 3: Telephony Options, select **I want to handle incoming calls with Amazon Connect** and **I want to make outbound calls with Amazon Connect**.
+7. In Step 4: Data storage, keep the defaults and select **Next step**.
+8. In Step 5: Review and Create, review your settings and then select **Create Instance**. 
 </p></details>
 
 ### Claim a phone number for your Amazon Connect instance
-After your Amazon Connect instance is created, choose **Get started** to select a phone number. 
+Once your Amazon Connect instance has been created, select **Get started** to select a phone number. 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
-1. Choose **Get started** to open the Amazon Connect Welcome screen.
-1. Select **Let's go** to claim a phone number.
-1. Select **United States +1**, **Direct Dial**, and choose a phone number from the numbers provided. Select **Next**
-1. Dial the phone number you selected in step 3 from another phone (e.g. your mobile phone) and choose the menu item to connect with an agent. You can then use the Amazon Connect Contact Control Panel located to the side to accept the call.
-1. Select **Continue**. This will open the Amazon Connect console.
+1. Select **Get started** to open the Amazon Connect Welcome screen.
+2. Select **Let's go** to claim a phone number.
+3. Select **United States +1**, **Direct Dial**, and choose a phone number from the numbers provided. Select **Next**
+4. Dial the phone number you selected in step 3 from another phone (e.g. your mobile phone) and choose **1** from the voice menu to connect with an agent. You can then use the Amazon Connect Contact Control Panel to accept the call.
+5. Select **Continue**. This will open the Amazon Connect console.
 </p></details>
 
 ### Configure contact flow
-With your contact centre instance set-up and a phone number claimed, you can now create the call flow that integrates with Amazon Lex.
-Before you continue, ensure that you have followed the instructions to configure your Amazon Lex bot **TODO: ADJUST NAME AND ADD LINK AS APPROPRIATE**
+With your contact centre instance set-up and a phone number claimed, you can now create the call flow that integrates with the Amazon Lex bot we created in [Module  1](../01_LexBotInformational).
+
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
 1. In the Amazon Connect Dashboard, use the navigation pane on the left hand side to select **Routing** and **Contact flows**.
 
-	![ContactFlowNavigation](../99_resources/contact_flows_navigation.png)
+	![ContactFlowNavigation](images/contact_flows_navigation.png)
 
 1. In the top right corner select **Create contact flow** to open the contact flow editor.
-1. Provide a name and a description for your new contact flow 
-	![ContactFlowNaming](../99_resources/contact_flow_naming.png)
+2. Name your contact flow `CustomerServiceChatbot` and give it a description.
 
-1. Expand the **Interact** group of blocks and drag and drop the **Get customer input** block onto the grid.
-1. Expand the **Terminate/Transfer** group of blocks and drag and drop the **Disconnect** block onto the grid.
-1. Wire up the three building blocks as shown in the image below.
+	![ContactFlowNaming](images/contact_flow_naming.png)
 
-	![ContactFlowNaming](../99_resources/contact_flow_wiring.png)
+3. Expand the **Interact** group of blocks and drag and drop the **Get customer input** block onto the grid.
+4. Expand the **Terminate / Transfer** group of blocks and drag and drop the **Disconnect / Hang up** block onto the grid.
+5. Wire up the three building blocks as shown in the image below.
 
-1. Double click on the **Get customer input** block to change its configuration. 
-	1. Select **Text to speech (Ad hoc)** and enter a welcome message for your callers as shown in the example below.
+	![ContactFlowWiring](images/contact_flow_wiring.png)
+
+1. Double click on the **Get customer input** block to access its configuration. 
+	1. Select the **Text to speech (Ad hoc)** input type and enter 'Welcome to the marvelous telco company' as a welcome message for your callers.
 	2. Select **Amazon Lex** input type
-	3. Enter bot name as defined in instructions to set-up Amazon Lex Bot **TODO: ADJUST NAME AND ADD LINK AS APPROPRIATE**
-	4. Set Alias to **$LATEST**
+	3. Enter `InternationalPlan` bot name and `dev` Alias
 	5. Click **Save**
 	
-	![ContactFlowNaming](../99_resources/get_customer_input_prompt.png)
+	![ContactFlowInput](images/get_customer_input_prompt.png)
 	
-	![ContactFlowNaming](../99_resources/get_customer_input_input.png)
+	![ContactFlowInput](images/get_customer_input_input.png)
 	
-1. Click on the **down arrow** (![ContactFlowNaming](../99_resources/down.png)) next to the save button and select **Save & Publish**
+1. Click on the **down arrow** (![DownArrow](images/down.png)) next to the save button and select **Save & Publish**
 1. Confirm publishing of the workflow in selcting the **Save & publish** button.
 </p>
 
@@ -82,22 +88,56 @@ Now you need to associate your new contact flow with your phone number
 
 1. Select **Routing** and **Phone Numbers** on the left hand Amazon Connect navigation pane.
 2. Click on the number to edit the contact flow
-3. Search and select your contact flow in the **Contact flow/IVR** field.
+3. Search and select the `CustomerServiceChatbot` contact flow in the **Contact flow/IVR** field.
 4. Select **Save** to confirm the contact flow association.
 </p></details>
 
 ### Enable Amazon Lex integration for your contact flow 
-While we have been able to configure the integration with Amazon Lex we still need to enable the Amazon Lex integration point for our Amazon Connect instance in the Amazon Connect console.
+As a final step we need to enable the Amazon Lex integration point for our Amazon Connect instance in the Amazon Connect console.
+
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
 1. Open the [Amazon Connect console](https://console.aws.amazon.com/connect/home?region=us-east-1) and select your Amazon Connect instance.
 2. Select **Contact flows** on the left hand navigation.
-3. In the **Amazon Lex** section select **+ Add Lex Bot**, select your bot name and select **Save Lex Bots**.
+3. In the **Amazon Lex** section select **+ Add Lex Bot**, select the `InternationalPlan' bot and klick on **Save Lex Bots**.
+</details>
 
 
 ### Test your Amazon Lex enabled Amazon Connect contact flow
-Dial your phone number to confirm functionality of contact flow and Amazon Lex integration.
+Dial your phone number to confirm functionality of contact flow and Amazon Lex integration. Use 1234 when asked for your pin code.
+
+### Extend contact flow integration to submit dialer ID to Amazon Lex 
+In this last step we are enhancing the customer input configuration of the contact flow to submit the dialer ID to Amazon Lex for authentication.
+
+ ![ContactFlowNavigation](images/set_session_attributes.png)
+
+<details>
+<summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
+
+1. Re-open the Amazon Connect Dashboard. Within the [Amazon Connect console](https://console.aws.amazon.com/connect/home?region=us-east-1) select **Overview** and **Login as administrator**
+2. On the left hand navigation select **Routing** **Contact flows**.
+
+	![ContactFlowNavigation](images/contact_flows_navigation.png)
+	
+3. Klick on the 'CustomerServiceChatbot' flow to open the flow.
+
+4. Double click on the **Get customer input** block to access its configuration.
+5. Scroll to the bottom and under **Session attributes** klick **Add a parameter**
+6. Select **Send attribute**
+7. In the **Type** drop-down, select **System**, Enter  `IncomingNumber` in the **Key** field and select **Customer Number** from the **Attribute** drop down.
+8. Klick **Add another Parameter**
+9. Enter `Source` as **Key** and `AmazonConnect` as **Value**
+10. Select **Save**
+11. Click on the **down arrow** (![DownArrow](images/down.png)) next to the save button and select **Save & Publish**
+	
+12. Confirm publishing of the workflow in selecting the **Save & publish** button.
+ 	![ContactFlowNavigation](images/publish_confirmation.png)
+</details>	
+	
+### Test your Amazon Lex enabled Amazon Connect contact flow
+Now re-test the contact flow and Amazon Lex integration with authentication enabled. When asked for your pin code enter the last four digits of the mobile number you are calling from.	
+	
 
 
 
