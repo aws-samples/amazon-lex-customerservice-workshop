@@ -1,7 +1,7 @@
 # Module 3: Integrate Amazon Lex with Amazon Connect
 In this module you will integrate your Lex bot with Amazon Connect, a contact center service that makes it easy for any business to deliver better customer service at lower cost.
 
-At completion of this module your customers will be able to interact with your Lex bot through the plain old telephone service.
+At completion of this module you will be able to interact with your Lex bot through the plain old telephone service.
 To achieve this you will create a contact center, configure a simple call flow, and assign a public phone number to the flow. 
 
 ## Implementation Instructions
@@ -18,17 +18,17 @@ Go to the [Amazon Connect Console](https://console.aws.amazon.com/connect/home?r
 
 1. From the AWS Management Console, choose **Services** then select **Amazon Connect** under Contact Center.
 2. Choose **Add an instance**.
-3. In Step 1: Identity management, select **Store users within Amazon Connect** and type a domain name (e.g. `{YourFirstName}ContactCentre` to complete **Access URL**. 
+3. In **Step 1: Identity management**, select **Store users within Amazon Connect** and type a domain name (e.g. `{YourFirstName}ContactCentre` to complete **Access URL**. 
 4. Select **Next step**.
 	
 	> The domain name used in your contact center URL needs to be globally unique and cannot be changed.
-	Alternatively Amazon Connect can leverage an existing directory.   
+	Alternatively, Amazon Connect can leverage an existing [AWS Directory Services](https://aws.amazon.com/directoryservice) directory.   
 	
 	
-5. In Step 2: Create an Administrator, select **Skip this**, and select **Next step**. We can add an adminstrator user later.
-6. In Step 3: Telephony Options, select **I want to handle incoming calls with Amazon Connect** and **I want to make outbound calls with Amazon Connect**.
-7. In Step 4: Data storage, keep the defaults and select **Next step**.
-8. In Step 5: Review and Create, review your settings and then select **Create Instance**. 
+5. In **Step 2: Create an Administrator**, select **Skip this**, and select **Next step**. We can add an adminstrator user later.
+6. In **Step 3: Telephony Options**, select **I want to handle incoming calls with Amazon Connect** and **I want to make outbound calls with Amazon Connect**.
+7. In **Step 4: Data storage**, keep the defaults and select **Next step**.
+8. In **Step 5: Review and Create**, review your settings and then select **Create Instance**. 
 </p></details>
 
 ### Claim a phone number for your Amazon Connect instance
@@ -100,12 +100,12 @@ As a final step we need to enable the Amazon Lex integration point for our Amazo
 
 1. Open the [Amazon Connect console](https://console.aws.amazon.com/connect/home?region=us-east-1) and select your Amazon Connect instance.
 2. Select **Contact flows** on the left hand navigation.
-3. In the **Amazon Lex** section select **+ Add Lex Bot**, select the `InternationalPlan' bot and klick on **Save Lex Bots**.
+3. In the **Amazon Lex** section select **+ Add Lex Bot**, select the `InternationalPlan` bot and klick on **Save Lex Bots**.
 </details>
 
 
 ### Test your Amazon Lex enabled Amazon Connect contact flow
-Dial your phone number to confirm functionality of contact flow and Amazon Lex integration. Use 1234 when asked for your pin code.
+Dial your Amazon Connect contact center phone number to confirm functionality of contact flow and Amazon Lex integration. Use 1234 when asked for your pin code.
 
 ### Extend contact flow integration to submit dialer ID to Amazon Lex 
 In this last step we are enhancing the customer input configuration of the contact flow to submit the dialer ID to Amazon Lex for authentication.
@@ -136,7 +136,7 @@ In this last step we are enhancing the customer input configuration of the conta
 </details>	
 	
 ### Test your Amazon Lex enabled Amazon Connect contact flow
-Now re-test the contact flow and Amazon Lex integration with authentication enabled. When asked for your pin code enter the last four digits of the mobile number you are calling from.	
+Now re-test the contact flow and Amazon Lex integration with authentication enabled. Dial your Amazon Connect contact center phone number again to confirm functionality. When asked for your pin code enter the last four digits of the mobile number you are calling from.	
 	
 
 
