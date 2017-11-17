@@ -21,7 +21,7 @@ Each of the following sections provide an implementation overview and detailed, 
 
 ### Prepare resources 
 
-In this step, we will use a CloudfFormation template to provision the AWS Lambda functions, DynamoDB tables, resources we will need in later steps of the workshop.
+In this step, we will use a CloudFormation template to provision the AWS Lambda functions, DynamoDB tables, resources we will need in later steps of the workshop.
 
 Region| Region Code | Launch
 ------|------|-------
@@ -95,7 +95,7 @@ Create a new intent `ListInternationalPlans` in the Lex bot
 
 1. Pick **Create new intent**
 
-1. Give the intent a name, `ListInternationalPlans`
+1. Give the intent a name, `ListInternationalPlans`, then click **Add**
 
 </details>
 
@@ -131,7 +131,7 @@ By providing sample utterances for a given intent, you can teach Amazon Lex diff
 Add the following sample utterances to the intent:
 
 * `I'm traveling to ​{Country}​`
-* `I am going to ​{Country}​`
+* `to ​{Country}​`
 * `List international plans`
 * `List international plans for {Country}`
 * `List travel plans available`
@@ -184,6 +184,8 @@ We can configure Lex to send the detected intent and slot values from the user u
 	
 	<img src="images/pick-lambda.png" alt="" width="60%">
 
+	> There are a handful of other Lambda functions the CloudFormation template created and that they all begin with `lex-workshop`, so be sure to select the right one.
+
 1. Click **OK** to give Lex permission to invoke the Lambda function.
 	![alt text](images/confirm-lambda-permission.png)
 
@@ -195,7 +197,7 @@ We can configure Lex to send the detected intent and slot values from the user u
 
 	<img src="images/after-lambda-integration.png" width="50%">
 
-	> The plan data are randomly generated and loaded into a dynamoDB table by the CloudFormation. It might not always make economic sense. 
+	> The plan data is randomly generated and loaded into a dynamoDB table by the CloudFormation. It might not always make economic sense. 
 
 1. Feel free to test the voice interaction in the Console as well. 
 
