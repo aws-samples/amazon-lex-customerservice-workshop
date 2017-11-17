@@ -623,7 +623,7 @@ function verifyUser(sessionAttributes, slots, intentRequest) {
             //     reject(err);
             // })
         }
-        if (intentRequest.bot.alias.startsWith("twilio")) {
+        if (intentRequest.bot.alias.toLowerCase().startsWith("twilio")) {
             const phoneNumber = "+" + intentRequest.userId;
             console.log("incoming phone number", phoneNumber)
             const expectedPin = phoneNumber.slice(phoneNumber.length - 4)
