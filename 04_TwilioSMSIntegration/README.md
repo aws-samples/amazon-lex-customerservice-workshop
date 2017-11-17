@@ -18,7 +18,7 @@ On the Twilio Console Dashboard, note your Twilio AUTH TOKEN and the Twilio AUTH
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
 1. Once you sign up for the trial account, Take a note of the  Twilio AUTH TOKEN and the Twilio AUTH ID listed in the home Dashboard page.
-2. Pick up a phone number. This phone number will be the SMS phone number which your bot users will use to interact with the lex bot you created.
+2. Pick up a phone number. This phone number will be the SMS phone number which your bot users will use to interact with the lex bot you created.Please note Twilio supports SMS for US numbers only. While picking a number for your bot users pick out an US phone number.
 3. Go to the home dashboard and then click on the manage phone number option.
 4. Next click on the Verified Caller IDs section and verify your individual phone number with which you will be sending an SMS. This is your personnel phone number.
 </p></details>
