@@ -290,8 +290,9 @@ You can also verify the user's plan selections are being persisted in DynamoDB b
 
 ### Publish the bot 
 
-Publish the bot with alias `dev`.
+An alias is a pointer to a specific version of an Amazon Lex bot. Use an alias to allow client applications to point to a tested version of the bot while you iterate on bot design (e.g. you might have different aliases for `prod`, `staging` and `dev` to represent different stages.)
 
+Here we will publish the bot with alias `dev`.
 
 <details>
 <summary><strong> Expand for detailed instruction </strong></summary><p>
