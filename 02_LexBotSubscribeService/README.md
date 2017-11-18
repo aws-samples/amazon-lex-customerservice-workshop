@@ -70,6 +70,8 @@ Let's start by defining the conversational interface of adding an international 
 	
 		<img src="images/custom-slot-type.png" alt="create new slot screenshot" width="60%">
 
+	1. Click **Add Slot to intent**
+	
 	1. Name the slot `planName` and use `which plan would you like to apply to your account?` for slot prompt
 
 		<img src="images/plan-name-slot.png" alt="create new slot screenshot" width="100%">

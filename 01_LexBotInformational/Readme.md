@@ -41,9 +41,11 @@ US East (N. Virginia) |   <span style="font-family:'Courier';">us-east-1</span> 
 
 1. On the Review page, check the boxes to acknowledge that CloudFormation will create IAM resources.
 
-	<img src="images/cloudformation-changeset.png" alt="" width="70%">
+	<img src="images/cloudformation-changeset.png" alt="" width="120%">
 
 1. Click **Create Change Set**.
+
+> 
 
 1. Wait for the change set to finish computing changes and click **Execute**
 
