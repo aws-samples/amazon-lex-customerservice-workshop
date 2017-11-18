@@ -56,7 +56,7 @@ US East (N. Virginia) |   <span style="font-family:'Courier';">us-east-1</span> 
 </p></details>
 
 
-### Create a Lex bot
+### 1A: Create a Lex bot
 
 Use the Lex Console to create a bot named `InternationalPlan`. 
 
@@ -86,7 +86,7 @@ Use the Lex Console to create a bot named `InternationalPlan`.
 1. Click **Create**
 </details>
 
-### Create the first intent
+### 1B: Create the first intent
 
 Create a new intent `ListInternationalPlans` in the Lex bot
 
@@ -101,7 +101,7 @@ Create a new intent `ListInternationalPlans` in the Lex bot
 
 </details>
 
-### Configure Slots
+### 1C: Configure Slots
 
 Slots are parameters you can define to capture inputs from your customer. In this example, the input parameter the bot need in order to fulfill the informational query is which country the customer is traveling to. 
 
@@ -126,7 +126,7 @@ Configure a slot `Country` with built-in type `AMAZON.Country` in the intent.
 
 </details>
 
-### Configure sample utterances
+### 1D: Configure sample utterances
 
 By providing sample utterances for a given intent, you can teach Amazon Lex different ways a user might convey an intent. 
 
@@ -171,7 +171,7 @@ Save the intent, build and test the bot in the Lex Console.
 </details>
 
 
-### Fulfill the query with AWS Lambda
+### 1E: Fulfill the query with AWS Lambda
 
 Now we have defined the conversational interface, we need to configure the backend logic to fulfill the customer query using **AWS Lambda**. 
 
@@ -206,7 +206,7 @@ We can configure Lex to send the detected intent and slot values from the user u
 </details>
 
 
-### Check execution logs for Lambda
+### 1F: Check execution logs for Lambda
 
 
 It's also valuable to understand what data is being passed to your Lambda function. Take a look at the `lex-workshop-LexBotHandler` function's **CloudWatch Logs** 
