@@ -177,7 +177,22 @@ Now we have defined the conversational interface, we need to configure the backe
 
 The Lambda function that can respond to the international plan customer request is already deployed by CloudFormation in the setup step. (It does so by querying a DynamoDB table pre-populated with fake data, also launched as part of the preparation CloudFormation)
 
-We can configure Lex to send the detected intent and slot values from the user utterance to the `lex-workshop-LexBotHandler` Lambda function.
+<details>
+<summary><strong>Expand here for instructions to check the DynamoDB table content on international plan catalogue</strong></summary><p>
+
+1. Go to the [DynamoDB console](https://console.aws.amazon.com/dynamodb/home)
+
+1. Select the table name starting with `lex-workshop-UserTravelPlansDDBTable `
+
+	<img src="images/plan-catalog-table.png" alt="ddb plan catalogue table" width="100%">
+
+1. You should see a list of pre-populated fake international plans. (Additional columns such as price per text are provided so you can use it to extend the bot. e.g. add a `GetPlanDetails` intent)
+
+	<img src="images/plan-catalog-details.png" alt="configure the pin slot" width="100%">
+
+</details>
+
+Now we are ready to configure Lex to send the detected intent and slot values from the user utterance to the `lex-workshop-LexBotHandler` Lambda function.
 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
