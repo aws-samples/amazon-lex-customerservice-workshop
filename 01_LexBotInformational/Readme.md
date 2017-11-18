@@ -45,7 +45,7 @@ US East (N. Virginia) |   <span style="font-family:'Courier';">us-east-1</span> 
 
 1. Click **Create Change Set**.
 
-> 
+	> Note the CloudFormation template we've provided is written using [AWS SAM](https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md) (AWS Serverless Application Model). SAM simplifies how to define functions, APIs, etc. for serverless applications, as well as some features for these services like environment variables. When deploying SAM templates in CloudFormation template, a transform step is required to convert the SAM template into standard CloudFormation, thus you must click the **Create Change Set** button to make the transform happen.
 
 1. Wait for the change set to finish computing changes and click **Execute**
 
