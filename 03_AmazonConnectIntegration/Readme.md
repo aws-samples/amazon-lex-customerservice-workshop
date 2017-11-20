@@ -100,12 +100,12 @@ As a final step we need to enable the Amazon Lex integration point for our Amazo
 
 1. Open the [Amazon Connect console](https://console.aws.amazon.com/connect/home?region=us-east-1) and select your Amazon Connect instance.
 2. Select **Contact flows** on the left hand navigation.
-3. In the **Amazon Lex** section select **+ Add Lex Bot**, select the `InternationalPlan` bot and klick on **Save Lex Bots**.
+3. In the **Amazon Lex** section select **+ Add Lex Bot**, select the `InternationalPlan` bot and click on **Save Lex Bots**.
 </details>
 
 
 ### Test your Amazon Lex enabled Amazon Connect contact flow
-Dial your Amazon Connect contact center phone number to confirm functionality of contact flow and Amazon Lex integration. Use 1234 when asked for your pin code.
+Dial your Amazon Connect contact center phone number to confirm functionality of contact flow and Amazon Lex integration. Tell the virtual service agent **"I am going to China."**, use 1234 when asked for your pin code.
 
 ### Extend contact flow integration to submit dialer ID to Amazon Lex 
 In this last step we are enhancing the customer input configuration of the contact flow to submit the dialer ID to Amazon Lex for authentication.
@@ -120,13 +120,13 @@ In this last step we are enhancing the customer input configuration of the conta
 
 	![ContactFlowNavigation](images/contact_flows_navigation.png)
 	
-3. Klick on the 'CustomerServiceChatbot' flow to open the flow.
+3. Click on the 'CustomerServiceChatbot' flow to open the flow.
 
 4. Double click on the **Get customer input** block to access its configuration.
-5. Scroll to the bottom and under **Session attributes** klick **Add a parameter**
+5. Scroll to the bottom and under **Session attributes** click **Add a parameter**
 6. Select **Send attribute**
 7. In the **Type** drop-down, select **System**, Enter  `IncomingNumber` in the **Key** field and select **Customer Number** from the **Attribute** drop down.
-8. Klick **Add another Parameter**
+8. Click **Add another Parameter**
 9. Enter `Source` as **Key** and `AmazonConnect` as **Value**
 10. Select **Save**
 11. Click on the **down arrow** (![DownArrow](images/down.png)) next to the save button and select **Save & Publish**
@@ -136,7 +136,7 @@ In this last step we are enhancing the customer input configuration of the conta
 </details>	
 	
 ### Test your Amazon Lex enabled Amazon Connect contact flow
-Now re-test the contact flow and Amazon Lex integration with authentication enabled. Dial your Amazon Connect contact center phone number again to confirm functionality. When asked for your pin code enter the last four digits of the mobile number you are calling from.	
+Now re-test the contact flow and Amazon Lex integration with authentication enabled. Dial your Amazon Connect contact center phone number again to confirm functionality. Ask the virtual service agent **"What iternational plans do you have?"**. When asked for your pin code enter the last four digits of the mobile number you are calling from.	
 	
 
 
