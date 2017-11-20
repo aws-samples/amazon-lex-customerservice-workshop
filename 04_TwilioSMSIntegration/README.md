@@ -24,7 +24,7 @@ On the Twilio Console Dashboard, note your Twilio AUTH TOKEN and the Twilio AUTH
 </p></details>
 
 ### Publish the your Amazon Lex Bot and Create an Alias
-An alias is a pointer to a specific version of an Amazon Lex bot. Use an alias to allow client applications to use a specific version of the bot without requiring the application to track which version that is. Here we will publish a new version of the bot which let's Amazon Lex takes a snapshot copy of the $LATEST version to publish a new version.
+An alias is a pointer to a specific version of an Amazon Lex bot. Use an alias to allow client applications to use a specific version of the bot without requiring the application to track which version that is. Here we will publish a new version of the bot which let's Amazon Lex takes a snapshot copy of the $LATEST version to publish a new version.The alias we publish is called "Twilio". This alias is sent across to the fulfillment Lambda as an event parameter. 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
@@ -56,6 +56,10 @@ To associate the Amazon Lex bot with your Twilio programmable SMS endpoint, acti
 ![Alt text](https://s3.amazonaws.com/lexworkshop/twilio2.png "Optional title")
 
 </p></details>
+
+### Test your Amazon Lex and Twilio Enabled BoT
+
+Now re-test the Amazon Lex integration with Twilio Integrationn enabled. Send anSMS to your Twilio SMS number to confirm functionality. When asked for your pin code enter the last four digits of the mobile number you are calling from.
 
 
 
