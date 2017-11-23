@@ -245,6 +245,11 @@ It's also valuable to understand what data is being passed to your Lambda functi
 	
 1. Observe the fields being passed from Lex to Lambda: `userId`, `bot`, `inputTranscript`, name of the intent, and slots identified. See documentation [here](http://docs.aws.amazon.com/lex/latest/dg/lambda-input-response-format.html) on detailed explanation of all available fields.
 
+	> A note on the `userId` field: 
+	>
+	> Think of it as a session identifier used to distinguish conversations or threads. If you are building integration using Lex's API directly, see documentation [here](http://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html#API_runtime_PostText_RequestParameters) on deciding what value to use for the user ID field.
+	> For natively supported messaging platforms, the userID is filled for you by the integration (e.g. the user's phone number is used as `userId` in the case of Twilio SMS.)
+	
 </details>
 
 ### Next module
