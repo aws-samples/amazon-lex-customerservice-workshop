@@ -355,20 +355,15 @@ function applyPlanIntent(intentRequest, callback) {
             callback(elicitSlot(sessionAttributes, applyPlanIntentName, slots, "Country"));
         }
 
-        //TODO: do a list plans
-        if (!slots.planName) {
-
-        }
-
         // Validate any slots which have been specified.  If any are invalid, re-elicit for their value
         validateApplyPlanInputs(sessionAttributes, slots).then(validationResult => {
             if (!validationResult.isValid) {
                 slots[`${validationResult.violatedSlot}`] = null;
-                callback(elicitSlot(sessionAttributes, intentRequest.currentIntent.name,
+                callback(elicitSlot(validationResult.sessionAttributes, intentRequest.currentIntent.name,
                     slots, validationResult.violatedSlot, validationResult.message));
                 return;
             }
-            callback(delegate(sessionAttributes, slots));
+            callback(delegate(validationResult.sessionAttributes, slots));
         }).catch(err => {
             console.error(err);
             callback(nextIntent(
@@ -383,11 +378,12 @@ function applyPlanIntent(intentRequest, callback) {
     }
 }
 
-function buildValidationResult(isValid, violatedSlot, messageContent) {
+function buildValidationResult(isValid, violatedSlot, messageContent, sessionAttributes) {
     return {
         isValid,
         violatedSlot,
         message: {contentType: 'PlainText', content: messageContent},
+        sessionAttributes
     };
 }
 
@@ -442,17 +438,17 @@ function validateApplyPlanInputs(sessionAttributes, slots) {
         slots.Country = standardizeCountryName(slots.Country);
         if (validateCountry(slots.Country).then(isValid => {
                 if (!isValid) {
-                    resolve(buildValidationResult(false, 'Country', `We currently do not support ${slots.Country}. Do you want try a different country?`));
+                    resolve(buildValidationResult(false, 'Country', `We currently do not support ${slots.Country}. Do you want try a different country?`), sessionAttributes);
                 } else {
-                    //TODO: check planName is valid
+                    sessionAttributes.country = slots.Country;
                     if (slots.startDate != null && !isValidDate(slots.startDate)) {
-                        resolve(buildValidationResult(false, 'startDate', `The date you specified, ${slots.startDate}, is not valid. Please specify a exact start date later than today.`));
+                        resolve(buildValidationResult(false, 'startDate', `The date you specified, ${slots.startDate}, is not valid. Please specify an exact start date later than today.`), sessionAttributes);
                     }
 
                     if (slots.numOfWeeks != null && !isValidNumOfWeek(slots.numOfWeeks)) {
-                        resolve(buildValidationResult(false, 'numOfWeeks', `The number of weeks you specified, ${slots.numOfWeeks}, is not valid. Please specify an integer greater than 0 less than 52.`));
+                        resolve(buildValidationResult(false, 'numOfWeeks', `The number of weeks you specified, ${slots.numOfWeeks}, is not valid. Please specify an integer greater than 0 less than 52.`), sessionAttributes);
                     }
-                    resolve({isValid: true});
+                    resolve({isValid: true, sessionAttributes});
                 }
             }).catch(err => reject(err)));
     });
@@ -472,7 +468,7 @@ function requestUserVerification(callback, sessionAttributes) {
 function moveCountryFromSessionToSlot(sessionAttributes, slots) {
     if (sessionAttributes.country) {
         slots.Country = sessionAttributes.country;
-        delete sessionAttributes.country;
+        // delete sessionAttributes.country;
     }
 }
 function verifyIdentityIntent(intentRequest, callback) {
@@ -574,9 +570,19 @@ function getVerifiedUser(sessionAttributes) {
     return sessionAttributes.loggedInUser;
 }
 
+function padPrecedingZeros(pinString) {
+    if (pinString.length < 4) {
+        var padded = "000" + pinString;
+        return padded.slice(padded.length - 4);
+    }
+    else {
+        return pinString;
+    }
+}
 
 function verifyUser(sessionAttributes, slots, intentRequest) {
     return new Promise((resolve, reject) => {
+        slots.pin = padPrecedingZeros(slots.pin);
         if (sessionAttributes.Source && sessionAttributes.Source === "AmazonConnect") {
             const phoneNumber = sessionAttributes.IncomingNumber;
             console.log("incoming phone number", phoneNumber)
