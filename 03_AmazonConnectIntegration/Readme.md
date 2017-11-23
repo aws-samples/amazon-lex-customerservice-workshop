@@ -18,14 +18,13 @@ Go to the [Amazon Connect Console](https://console.aws.amazon.com/connect/home?r
 
 1. From the AWS Management Console, choose **Services** then select **Amazon Connect** under Contact Center.
 2. Choose **Add an instance**.
-3. In **Step 1: Identity management**, select **Store users within Amazon Connect** and type a domain name (e.g. `{YourFirstName}ContactCentre` to complete **Access URL**. 
-4. Select **Next step**.
+3. In **Step 1: Identity management**, select **Store users within Amazon Connect** and type a domain name (e.g. `{YourFirstName}ContactCentre` to complete **Access URL**, Select **Next step**.
 	
 	> The domain name used in your contact center URL needs to be globally unique and cannot be changed.
 	Alternatively, Amazon Connect can leverage an existing [AWS Directory Services](https://aws.amazon.com/directoryservice) directory.   
 	
 	
-5. In **Step 2: Create an Administrator**, select **Skip this**, and select **Next step**. We can add an adminstrator user later.
+5. In **Step 2: Create an Administrator**, select **Skip this**, and select **Next step**. 
 6. In **Step 3: Telephony Options**, select **I want to handle incoming calls with Amazon Connect** and **I want to make outbound calls with Amazon Connect**.
 7. In **Step 4: Data storage**, keep the defaults and select **Next step**.
 8. In **Step 5: Review and Create**, review your settings and then select **Create Instance**. 
@@ -36,7 +35,7 @@ Once your Amazon Connect instance has been created, select **Get started** to se
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
-1. Select **Get started** to open the Amazon Connect Welcome screen.
+1. Select **Get started** to open the Amazon Connect Contact Center Manager (CCM) Welcome screen.
 2. Select **Let's go** to claim a phone number.
 3. Select **United States +1**, **Direct Dial**, and choose a phone number from the numbers provided. Select **Next**
 4. Dial the phone number you selected in step 3 from another phone (e.g. your mobile phone) and choose **1** from the voice menu to connect with an agent. You can then use the Amazon Connect Contact Control Panel to accept the call.
@@ -49,9 +48,11 @@ With your contact centre instance set-up and a phone number claimed, you can now
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
-1. In the Amazon Connect Dashboard, use the navigation pane on the left hand side to select **Routing** and **Contact flows**.
+1. In the Amazon Connect Contact Center Manager, use the navigation pane on the left hand side to select **Routing** and **Contact flows**.
 
 	![ContactFlowNavigation](images/contact_flows_navigation.png)
+	
+	> If you closed your browser window you can always re-open the Amazon Connect Contact Center Manager from the [Amazon Connect console](https://console.aws.amazon.com/connect/home?region=us-east-1). Just selct your Amazon connect instance and click on the **Login as administrator** button in the **Overview** section of the console. 
 
 1. In the top right corner select **Create contact flow** to open the contact flow editor.
 2. Name your contact flow `CustomerServiceChatbot` and give it a description.
