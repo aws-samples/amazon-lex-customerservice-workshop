@@ -66,14 +66,15 @@ With your contact centre instance set-up and a phone number claimed, you can now
 	![ContactFlowWiring](images/contact_flow_wiring.png)
 
 1. Double click on the **Get customer input** block to access its configuration. 
-	1. Select the **Text to speech (Ad hoc)** input type and enter 'Welcome to the marvelous telco company' as a welcome message for your callers.
+	1. Select the **Text to speech (Ad hoc)** input type and enter the below as a welcome message for your callers:
+		` Welcome to the marvelous telco company. How can I help you today?`
 	2. Select **Amazon Lex** input type
 	3. Enter `InternationalPlan` bot name and `dev` Alias
 	5. Click **Save**
 	
-	![ContactFlowInput](images/get_customer_input_prompt.png)
-	
-	![ContactFlowInput](images/get_customer_input_input.png)
+		![ContactFlowInput](images/get_customer_input_prompt.png)
+		
+		![ContactFlowInput](images/get_customer_input_input.png)
 	
 1. Click on the **down arrow** (![DownArrow](images/down.png)) next to the save button and select **Save & Publish**
 1. Confirm publishing of the workflow in selcting the **Save & publish** button.
