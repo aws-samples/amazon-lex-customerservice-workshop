@@ -28,3 +28,12 @@ Once you have a working Lex chatbot, you can choose to complete one or more of t
 
 * [Integrate Lex chatbot with Amazon Connect (voice over the phone)](03_AmazonConnectIntegration)
 * [Integrate Lex chatbot with Twilio SMS (text over SMS)](04_TwilioSMSIntegration)
+
+Extra credit ideas:
+
+* [Extra credit](10_ExtraCredit)
+
+Resource cleanup:
+
+* [Resource clean-up](11_Cleanup)
+
