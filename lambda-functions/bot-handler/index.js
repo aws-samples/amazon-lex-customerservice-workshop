@@ -21,6 +21,7 @@ const applyPlanIntentName = "ApplyTravelPlan";
 const checkPlanIntentName = "CheckTravelPlan";
 const verifyIdentityIntentName = "VerifyIdentity";
 const listPlanIntentName = "ListInternationalPlans";
+const helloIntentName = "Hello";
 
 const finishIntentName = "Finish";
 
@@ -144,6 +145,22 @@ function finishIntent(intentRequest, callback) {
         contentType: 'PlainText',
         content: 'Thank you. Good bye.'
     }));
+}
+
+function helloIntent(intentRequest, callback) {
+    const sessionAttributes = intentRequest.sessionAttributes || {};
+    var msg = "Hello, thank you for contacting the marvelous telco company. How can I help you today? "
+    if (intentRequest.outputDialogMode === "Text") {
+        msg += '("Tell me about international plans", "Check the travel plans in my account", etc. )'
+    } else {
+        msg += 'you can say things like "Tell me about international plans"'
+    }
+    callback(nextIntent(
+        sessionAttributes,
+        {
+            'contentType': 'PlainText',
+            'content': msg
+        }));
 }
 
 function listPlanIntent(intentRequest, callback) {
@@ -629,7 +646,7 @@ function verifyUser(sessionAttributes, slots, intentRequest) {
             //     reject(err);
             // })
         }
-        if (intentRequest.bot.alias.toLowerCase().startsWith("twilio")) {
+        if (intentRequest.requestAttributes && intentRequest.requestAttributes["x-amz-lex:channel-type"] && intentRequest.requestAttributes["x-amz-lex:channel-type"] == "Twilio-SMS") {
             const phoneNumber = "+" + intentRequest.userId;
             console.log("incoming phone number", phoneNumber)
             const expectedPin = phoneNumber.slice(phoneNumber.length - 4)
@@ -639,7 +656,6 @@ function verifyUser(sessionAttributes, slots, intentRequest) {
             } else {
                 resolve({result: true, userCognitoId: phoneNumber});
             }
-
         } else {
             // from lex console, no phone number to identity the user.
             if (slots.pin !== stubPin) {
@@ -647,7 +663,13 @@ function verifyUser(sessionAttributes, slots, intentRequest) {
                 resolve({result: false});
                 return;
             } else {
-                console.log("No phone number from input, pin match stub pin");
+                console.log("No phone number from input, pin match stub pin")
+                if (intentRequest.requestAttributes && intentRequest.requestAttributes["x-amz-lex:channel-type"] && intentRequest.requestAttributes["x-amz-lex:channel-type"] == "Facebook") {
+                    if (intentRequest.requestAttributes['x-amz-lex:user-id']) {
+                        resolve({result: true, userCognitoId: intentRequest.requestAttributes['x-amz-lex:user-id']});
+                        return;
+                    }
+                }
                 resolve({result: true, userCognitoId: stubUserId});
             }
         }
@@ -694,10 +716,12 @@ function dispatch(intentRequest, callback) {
         return applyPlanIntent(intentRequest, callback);
     } else if (intentName === finishIntentName) {
         return finishIntent(intentRequest, callback);
-    } else if (intentName == listPlanIntentName) {
+    } else if (intentName === listPlanIntentName) {
         return listPlanIntent(intentRequest, callback);
-    }
-    else {
+    } else if (intentName === helloIntentName) {
+        return helloIntent(intentRequest, callback);
+
+    } else {
         return checkPlanIntent(intentRequest, callback);
     }
     throw new Error(`Intent with name ${intentName} not supported`);
