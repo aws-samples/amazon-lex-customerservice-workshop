@@ -90,25 +90,25 @@ Resources:
           USER_PLAN_DDB_TABLE: !Ref UserTravelPlansDDBTable
           PLAN_CATALOGUE_DDB_TABLE: !Ref TravelPlanCatalogDDBTable
 
-  CognitoTriggerFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      Description: "Lambda function to update the user DDB table when cognito user signs up."
-      CodeUri: ../lambda-functions/cognito-trigger
-      Runtime: nodejs4.3
-      MemorySize: 256
-      Timeout: 20
-      Handler: index.handler
-      Policies:
-        Statement:
-          - Effect: Allow
-            Action:
-              - dynamodb:*
-            Resource:
-              !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${UsersDDBTable}"
-      Environment:
-        Variables:
-          USER_DDB_TABLE: !Ref UsersDDBTable
+#  CognitoTriggerFunction:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      Description: "Lambda function to update the user DDB table when cognito user signs up."
+#      CodeUri: ../lambda-functions/cognito-trigger
+#      Runtime: nodejs4.3
+#      MemorySize: 256
+#      Timeout: 20
+#      Handler: index.handler
+#      Policies:
+#        Statement:
+#          - Effect: Allow
+#            Action:
+#              - dynamodb:*
+#            Resource:
+#              !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${UsersDDBTable}"
+#      Environment:
+#        Variables:
+#          USER_DDB_TABLE: !Ref UsersDDBTable
 
   DataLoaderFunction:
     Type: AWS::Serverless::Function
