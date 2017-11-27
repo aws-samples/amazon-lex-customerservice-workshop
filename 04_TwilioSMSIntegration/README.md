@@ -23,17 +23,6 @@ On the Twilio Console Dashboard, note your Twilio AUTH TOKEN and the Twilio AUTH
 4. Next click on the Verified Caller IDs section and verify your individual phone number with which you will be sending an SMS. This is your personnel phone number.
 </p></details>
 
-### Publish the your Amazon Lex Bot and Create an Alias
-An alias is a pointer to a specific version of an Amazon Lex bot. Use an alias to allow client applications to use a specific version of the bot without requiring the application to track which version that is. Here we will publish a new version of the bot which let's Amazon Lex takes a snapshot copy of the $LATEST version to publish a new version.The alias we publish is called "Twilio". This alias is sent across to the fulfillment Lambda as an event parameter. 
-<details>
-<summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
-
-1. Verify that the console shows the $LATEST as the bot version next to the bot name.
-2. Choose **Publish**.
-3. On the Publish botname wizard, specify an **alias**, name the alias "Twilio", and then choose Publish.
-4. Verify that the Amazon Lex console shows the new version next to the bot name.
-</p></details>
-
 ### Integrate the Twilio Messaging Service Endpoint with the Amazon Lex Bot 
 To associate the Amazon Lex bot with your Twilio programmable SMS endpoint, activate bot channel association in the Amazon Lex console. When the bot channel association has been activated, Amazon Lex returns a callback URL. Record this callback URL because you need it later.
 <details>
