@@ -37,6 +37,11 @@ Why not add more channels your customer can use to reach your customer service? 
 	* [Capturing Voice Input in a Browser and Sending it to Amazon Lex
 ](https://aws.amazon.com/blogs/ai/capturing-voice-input-in-a-browser/)
 
+* **Any Messenging service**
+	Refer to this blog post to integrate your Lex bot with any messenging service:
+	
+	* [https://aws.amazon.com/blogs/ai/integrate-your-amazon-lex-bot-with-any-messaging-service/](https://aws.amazon.com/blogs/ai/integrate-your-amazon-lex-bot-with-any-messaging-service/)
+	
 ## Challenge 2: make the bot support additional intents
 
 Some ideas: 
