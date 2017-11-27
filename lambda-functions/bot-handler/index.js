@@ -149,11 +149,11 @@ function finishIntent(intentRequest, callback) {
 
 function helloIntent(intentRequest, callback) {
     const sessionAttributes = intentRequest.sessionAttributes || {};
-    var msg = "Hello, thank you for contacting the marvelous telco company. How can I help you today? "
-    if (intentRequest.outputDialogMode === "Text") {
-        msg += '("Tell me about international plans", "Check the travel plans in my account", etc. )'
+    var msg = "Thank you for contacting the marvelous telco company. How can I help you today? "
+    if (intentRequest.outputDialogMode === "Voice" || (sessionAttributes.Source && sessionAttributes.Source === "AmazonConnect")) {
+        msg += 'you can say things like "Tell me about international plans".'
     } else {
-        msg += 'you can say things like "Tell me about international plans"'
+        msg += '("Tell me about international plans", "Check the travel plans in my account", etc. )'
     }
     callback(nextIntent(
         sessionAttributes,
@@ -720,8 +720,7 @@ function dispatch(intentRequest, callback) {
         return listPlanIntent(intentRequest, callback);
     } else if (intentName === helloIntentName) {
         return helloIntent(intentRequest, callback);
-
-    } else {
+    } else if (intentName === checkPlanIntentName) {
         return checkPlanIntent(intentRequest, callback);
     }
     throw new Error(`Intent with name ${intentName} not supported`);
