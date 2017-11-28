@@ -182,7 +182,7 @@ The Lambda function that can respond to the international plan customer request 
 
 1. Go to the [DynamoDB console](https://console.aws.amazon.com/dynamodb/home)
 
-1. Select the table name starting with `lex-workshop-UserTravelPlansDDBTable `
+1. Select the table name starting with `lex-workshop-TravelPlanCatalog`
 
 	<img src="images/plan-catalog-table.png" alt="ddb plan catalogue table" width="100%">
 
