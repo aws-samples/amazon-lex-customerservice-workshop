@@ -158,7 +158,7 @@ Save the intent, build and test the bot in the Lex Console.
 
 1. Click **Build** at the top right of the page to build the bot 
  
-1. Once the build complete, use the **Test Bot** window to test different ways customer may ask about international plans for the countries they are traveling to. Verify that the bot is able to detect the intent. 
+1. Once the build completes, use the **Test Bot** window to test different ways customer may ask about international plans for the countries they are traveling to. Verify that the bot is able to detect the intent. 
 
 	In the below example, the user utterance contains the slot value, which Lex was able to detect: 
 
