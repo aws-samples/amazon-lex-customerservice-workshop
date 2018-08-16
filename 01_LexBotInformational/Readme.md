@@ -186,7 +186,7 @@ The Lambda function that can respond to the international plan customer request 
 
 	<img src="images/plan-catalog-table.png" alt="ddb plan catalogue table" width="100%">
 
-1. You should see a list of pre-populated fake international plans. (Additional columns such as price per text are provided so you can use it to extend the bot. e.g. add a `GetPlanDetails` intent)
+1. You should see a list of pre-populated fake international plans. (Additional columns such as price per text are provided so you can use them to extend the bot. e.g. add a `GetPlanDetails` intent)
 
 	<img src="images/plan-catalog-details.png" alt="configure the pin slot" width="100%">
 
