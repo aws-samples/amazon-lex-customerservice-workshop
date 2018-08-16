@@ -199,7 +199,7 @@ Now we are ready to configure Lex to send the detected intent and slot values fr
 
 1. In the **Fulfillment** section of the intent, choose **AWS Lambda function** and use the selector to pick the `lex-workshop-LexBotHandler` function
 	
-	<img src="images/pick-lambda.png" alt="" width="60%">
+	<img src="images/pick-lambda.png" alt="" width="90%">
 
 	> There are a handful of other Lambda functions the CloudFormation template created and that they all begin with `lex-workshop`, so be sure to select the right one.
 
