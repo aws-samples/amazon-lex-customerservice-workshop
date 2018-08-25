@@ -49,7 +49,7 @@ Let's start by defining the conversational interface of adding an international 
 
 	* Name it `Country`
 	* Use built-in type `AMAZON.Country`
-	* For prompt, use `which country are you going to?`
+	* For prompt, use `Which country are you going to?`
 
 	</details>
 
