@@ -165,7 +165,7 @@ Now, configure the `lex-workshop-LexBotHandler` function for input validation fo
 <details>
 <summary><strong> Expand for detailed instruction </strong></summary><p>
 	
-1. Under **Lambda initialization and validation** setting for the intent, pick the `lex-workshop-LexBotHandler` lambda function
+1. Under **Lambda initialization and validation** setting for the `ApplyTravelPlan` intent, pick the `lex-workshop-LexBotHandler` Lambda function
 	
 	<img src="images/validation-lambda.png" alt="configure validation lambda screenshot" width="70%">
 	
