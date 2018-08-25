@@ -72,7 +72,7 @@ Let's start by defining the conversational interface of adding an international 
 
 	1. Click **Add Slot to intent**
 	
-	1. Name the slot `planName` and use `which plan would you like to apply to your account?` for slot prompt
+	1. Name the slot `planName` and use `Which plan would you like to apply to your account?` for slot prompt
 
 		<img src="images/plan-name-slot.png" alt="create new slot screenshot" width="100%">
 
@@ -85,11 +85,11 @@ Let's start by defining the conversational interface of adding an international 
 	1. For start date:
 		* Name it `startDate`
 		* Use built-in type `AMAZON.DATE`
-		* For prompt, use 	`when do you like {planName} plan to start?`	
+		* For prompt, use 	`When do you like {planName} plan to start?`	
 	1. For duration:
 		* Name it `numOfWeeks`
 		* Use built-in type `AMAZON.NUBMER`
-		* For prompt, use `how many weeks will you need?`
+		* For prompt, use `How many weeks will you need?`
 
 	</details>
 
