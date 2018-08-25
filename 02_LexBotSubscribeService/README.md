@@ -93,7 +93,7 @@ Let's start by defining the conversational interface of adding an international 
 
 	</details>
 
-1. Ensure to check the **Required** checkbox for all the 4 slots
+1. Confirm that all 4 slots are marked **Required**
 
 	<img src="images/configure-slots.png" alt="create new slot screenshot" width="100%">
 
