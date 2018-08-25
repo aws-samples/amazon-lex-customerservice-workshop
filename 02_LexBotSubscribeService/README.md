@@ -85,7 +85,7 @@ Let's start by defining the conversational interface of adding an international 
 	1. For start date:
 		* Name it `startDate`
 		* Use built-in type `AMAZON.DATE`
-		* For prompt, use 	`When do you like {planName} plan to start?`	
+		* For prompt, use 	`When would you like {planName} plan to start?`	
 	1. For duration:
 		* Name it `numOfWeeks`
 		* Use built-in type `AMAZON.NUBMER`
