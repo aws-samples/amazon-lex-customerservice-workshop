@@ -97,7 +97,7 @@ Let's start by defining the conversational interface of adding an international 
 
 	<img src="images/configure-slots.png" alt="create new slot screenshot" width="100%">
 
-1. Add sample utterances:
+1. Add sample utterances (remember to add them one at a time):
 
 	```
 	​{planName}​
