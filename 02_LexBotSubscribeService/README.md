@@ -192,12 +192,9 @@ To handle the identity verification flow, create a new intent with a slot for us
 
 	<img src="images/pin-slot.png" alt="configure the pin slot" width="100%">
 
-1. Make sure the **Required** checkbox is checked for the slot
+1. Be sure to mark it **Required**
 
-	<img src="images/pin-slot-required.png" alt="configure the pin slot" width="100%">
-
-
-1. Add sample utterances for the intent:
+1. Add sample utterances for the intent (one at a time):
 
 	```
 	{pin}
