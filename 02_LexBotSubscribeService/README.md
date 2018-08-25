@@ -229,11 +229,12 @@ Now we are ready to fulfill the user's request to add plans to their account! Co
 
 1. Go to the `ApplyTravelPlan` intent
 
-1. Under fulfillment, select `lex-workshop-LexBotHandler` Lambda function
+1. Under Fulfillment, select the `lex-workshop-LexBotHandler` Lambda function (you may need to grant permissions as before)
 
-1. We can add a **follow-up message** for when the Lambda function successfully adds the plan to the user's account: 
-	* Follow-up message: `{planName} plan in {Country} has been added to your account. Can I help you with anything else?`
-	* Cancel: `Ok. Thank you. Have a nice day.`
+1. We can add a **response** for when the Lambda function successfully adds the plan to the user's account: 
+	* Response message: `{planName} plan in {Country} has been added to your account. What else can I help with today?`
+	* Wait for user reply: `Thank you. Have a nice day.`	
+	* (For spontaneity, you can add multiple messages and Lex will choose one at runtime.)
 
 	<img src="images/fulfill-plan-configuration.png" alt="configure the pin slot" width="100%">
 
