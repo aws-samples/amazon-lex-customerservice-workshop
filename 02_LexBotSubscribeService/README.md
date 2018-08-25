@@ -119,7 +119,7 @@ Let's start by defining the conversational interface of adding an international 
 	1. Fill in for **Confirm**
 	
 		```
-		To confirm, you want to apply {planName} plan in {Country} for {numOfWeeks} weeks starting {startDate}, is that right?
+		You want to apply {planName} plan in {Country} for {numOfWeeks} weeks starting {startDate}, is that right?
 		```
 		
 	1. For **Cancel (if the user says "no")**, fill in 
