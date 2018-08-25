@@ -7,8 +7,7 @@ Amazon Lex offers built-in integration with Facebook, Slack and Twilio. In this 
 Each of the following sections provide an implementation overview and detailed, step-by-step instructions. The overview should provide enough context for you to complete the implementation if you're already familiar with the AWS Management Console and Twilio or you want to explore the services yourself without following a walkthrough.
 
 ### Signup for a new Twilio trial account
-Start with signing up for a Trial twilio account 
-[here](https://www.twilio.com/try-twilio) 
+If you don't already have an account, sign up [here](https://www.twilio.com/try-twilio).
 
 Next, set up a Twilio SMS-enabled phone number where users can send SMS messages to interact with your bot. If you don’t already have a Twilio account, you can sign-up for a trial account, which includes a free phone number. Make sure that your Twilio number has SMS capability turned on, and that you verify your own phone number with Twilio for testing. Remember, Twilio trial account has some limitations for example for the phone number you choose you will be able to interact with verified phone numbers only. Which means in order to test you bot with Twilio integration you have to verify your phone number by adding to Verified Caller ID's in the Twilio console.
 
