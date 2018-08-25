@@ -148,15 +148,15 @@ Let's start by defining the conversational interface of adding an international 
 
 #### Validate input with AWS Lambda
 
-In the last module, we used AWS Lambda to fulfill user's intent. Another powerful integration is using Lambda functions to **validate user's inputs**. When you enable this feature, Lex invokes the specified Lambda function on each user input (utterance) after Amazon Lex understands the intent. 
+In the last module, we used AWS Lambda to fulfill the user's intent. Another powerful integration is using Lambda functions to **validate user inputs**. When you enable this feature, Lex invokes the specified Lambda function on each user input (utterance) after Amazon Lex recognizes the intent. 
 
-Here are a few things this feature can help with our `ApplyTravelPlan` intent
+Here's how we can use this for our `ApplyTravelPlan` intent
 
-* As soon as Lex recognize user's intent to subscribe to a plan, the Lambda function can check if the user has been authenticated (through [session attributes](#session-context)). If not, **force the user to verify their identity before proceeding**
+* Once Lex recognizes the intent to subscribe to a plan, the Lambda function can check if the user has been authenticated (through [session attributes](#session-context)). If not, **force the user to verify their identity before proceeding**
 
-* Validate the `startDate` user specified is later than today's date
+* Validate that the `startDate` is in the future
 
-* Validate the number of weeks user can apply their plan is between 0 and 52.  
+* Validate that the number of weeks is between 0 and 52.  
 
 * Validate there's a corresponding plan for user's specified country.    
 
