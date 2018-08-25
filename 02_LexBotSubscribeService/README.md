@@ -143,7 +143,7 @@ Let's start by defining the conversational interface of adding an international 
 	 
 	1. Once the build complete, use the **Test Bot** window to test the conversation flow for this intent
 	
-		<img src="images/test-bot-with-confirmation.png" alt="test bot screenshot" width="50%">
+		<img src="images/test-bot-with-confirmation.png" alt="test bot screenshot">
 	</details>
 
 #### Validate input with AWS Lambda
