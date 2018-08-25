@@ -12,15 +12,18 @@ Start with signing up for a Trial twilio account
 
 Next, set up a Twilio SMS-enabled phone number where users can send SMS messages to interact with your bot. If you don’t already have a Twilio account, you can sign-up for a trial account, which includes a free phone number. Make sure that your Twilio number has SMS capability turned on, and that you verify your own phone number with Twilio for testing. Remember, Twilio trial account has some limitations for example for the phone number you choose you will be able to interact with verified phone numbers only. Which means in order to test you bot with Twilio integration you have to verify your phone number by adding to Verified Caller ID's in the Twilio console.
 
-On the Twilio Console Dashboard, note your Twilio AUTH TOKEN and the Twilio AUTH ID. You will be needing this information later.
+On the Twilio Console Dashboard, note your Twilio Account SID and your Auth Token (Test first, Live when you're ready). will need this information later.
 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
-1. Once you sign up for the trial account, take a note of the  Twilio AUTH TOKEN and the Twilio AUTH ID listed in the home Dashboard page (note:  you may have to create a `Learn & Explore` project to get started).
-2. Pick up a phone number. This phone number will be the SMS phone number which your bot users will use to interact with the lex bot you created. Please note Twilio supports SMS for US numbers only. While picking a number for your bot users, choose a US phone number.
-3. Go to the home dashboard and then click on the manage phone number option.
-4. Next click on the Verified Caller IDs section and verify your individual phone number with which you will be sending an SMS. (For example, this is your mobile number if you intend to use that device to test.)
+1. Once you sign up for the trial account, take a note of the Twilio Account SID and the Twilio Auth Token under Dashboard - General - Settings (note:  you may have to create a `Learn & Explore` project to get started).
+
+1. Under Phone Numbers, pick a phone number.  This phone number will be the SMS phone number which your bot users will use to interact with the Lex bot you created.  Please choose a US number because Twilio supports SMS for US numbers only at this time.
+
+    <img src="images/twilio-numbers.png" alt="Twilio Manage Phone Numbers screenshot">
+
+1. Under Verified Caller IDs section, verify the phone number you will use for testing. (For example, this is your mobile number if you intend to use that device to test your bot over SMS.)
 </p></details>
 
 ### Integrate the Twilio Messaging Service Endpoint with the Amazon Lex Bot 
