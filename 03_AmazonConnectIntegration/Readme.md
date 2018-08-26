@@ -44,34 +44,37 @@ Once your Amazon Connect instance has been created, click **Get started** to sel
 1. Dial the phone number you selected in step 3 from another phone (e.g. your mobile phone) and choose **1** from the voice menu to connect with an agent; you can then use the Amazon Connect Contact Control Panel to accept the call
 	> It may take a few minutes before the claimed phone number is active.
 
-1. Choose **Continue** to get to the Amazon Connect App; poke around a bit to see what's available
+1. Choose **Continue** to get to the Amazon Connect Contact Center Manager App (CCM); poke around a bit to see what's available
 	> If you accepted a call, it should show up under the Contact search option.
 </p></details>
 
 ### Configure contact flow
-With your contact centre instance set-up and a phone number claimed, you can now create the call flow that integrates with the Amazon Lex bot we created in [Module  1](../01_LexBotInformational).
+With a Connect instance and a phone number, you can now create the Contact Flow that allows callers to interact with our bot in [Module  1](../01_LexBotInformational).
 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
-1. In the Amazon Connect Contact Center Manager, use the navigation pane on the left hand side to select **Routing** and **Contact flows**.
+1. In the Amazon Connect Contact Center Manager, use the navigation pane on the left hand side to select **Routing** and then **Contact flows**
 
 	![ContactFlowNavigation](images/contact_flows_navigation.png)
 	
 	> If you closed your browser window you can always re-open the Amazon Connect Contact Center Manager from the [Amazon Connect console](https://console.aws.amazon.com/connect/home?region=us-east-1). Just selct your Amazon connect instance and click on the **Login as administrator** button in the **Overview** section of the console. 
 
-1. In the top right corner select **Create contact flow** to open the contact flow editor.
-2. Name your contact flow `CustomerServiceChatbot` and give it a description.
+1. In the top right corner select **Create contact flow** to open the contact flow editor
+
+1. Name your contact flow `CustomerServiceChatbot` and give it a description
 
 	![ContactFlowNaming](images/contact_flow_naming.png)
 
-3. Expand the **Interact** group of blocks and drag and drop the **Get customer input** block onto the grid.
-4. Expand the **Terminate / Transfer** group of blocks and drag and drop the **Disconnect / Hang up** block onto the grid.
-5. Wire up the three building blocks as shown in the image below.
+1. Expand the **Interact** group of blocks and drag and drop the **Get customer input** block onto the grid
+
+1. Expand the **Terminate / Transfer** group of blocks and drag and drop the **Disconnect / Hang up** block onto the grid
+
+1. Wire up the three building blocks as shown in the image below
 
 	![ContactFlowWiring](images/contact_flow_wiring.png)
 
-1. Double click on the **Get customer input** block to access its configuration. 
+1. Double click on the **Get customer input** block to access its configuration
 	1. Select the **Text to speech (Ad hoc)** input type and enter the below as a welcome message for your callers:
 		` Welcome to the marvelous telco company. How can I help you today?`
 	2. Select **Amazon Lex** input type
@@ -83,7 +86,8 @@ With your contact centre instance set-up and a phone number claimed, you can now
 		![ContactFlowInput](images/get_customer_input_input.png)
 	
 1. Click on the **down arrow** (![DownArrow](images/down.png)) next to the save button and select **Save & Publish**
-1. Confirm publishing of the workflow in selcting the **Save & publish** button.
+
+1. Confirm publishing of the workflow in selcting the **Save & publish** button
 </p>
 
 </details>
