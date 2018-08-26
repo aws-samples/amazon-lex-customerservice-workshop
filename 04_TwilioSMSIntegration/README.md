@@ -26,23 +26,21 @@ On the Twilio Console Dashboard, note your Twilio Account SID and your Auth Toke
 </p></details>
 
 ### Integrate the Twilio Messaging Service Endpoint with the Amazon Lex Bot 
-To associate the Amazon Lex bot with your Twilio programmable SMS endpoint, activate bot channel association in the Amazon Lex console. When the bot channel association has been activated, Amazon Lex returns a callback URL. Record this callback URL because you need it later.
+To associate the Amazon Lex bot with your Twilio programmable SMS endpoint, create a channel association in the Amazon Lex console. When the channel association has been activated, Amazon Lex returns a callback URL. Record this callback URL for later.
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
-1. Open the [Amazon Lex console](https://console.aws.amazon.com/lex/home?region=us-east-1) and Choose the Amazon Lex bot that you created in this workshop.
+1. Open the [Amazon Lex console](https://console.aws.amazon.com/lex/home?region=us-east-1) and choose the `InternationalPlan` bot
 
-1. Choose the **Channels** tab.
+1. Choose the **Channels** tab; then **Twilio SMS**
 
-1. In the **Chatbots section**, choose **Twilio SMS**.
-
-1. In the **Twilio SMS** page provide the following information.
-  * Channel name: `SMSTest`
-  * Channel description: `Twilio SMS channel for beta bot`
-  * KMS key:  `aws/lex`
-  * Alias:  `beta`
-  * Use the Auth Token and Account SID from earlier
-  * Activate; note the endpoint created for Twilio SMS
+1. Provide the following information:
+	* Channel name: `SMSTest`
+	* Channel description: `Twilio SMS channel for dev bot`
+	* KMS key:  `aws/lex`
+	* Alias:  `devt`
+	* Use the Auth Token and Account SID from earlier
+	* Activate; note the endpoint created for Twilio SMS
 
     <img src="images/twilio-channel.png" alt="Amazon Lex - Twilio SMS Channel activation">
 
