@@ -54,6 +54,10 @@ With a Connect instance and a phone number, you can now create the Contact Flow 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
+1. In the Amazon Connect Console, select your instance, then choose Contact Flows to allow Amazon Connect to interact with the `InternationalPlan` bot
+
+	<img src="images/allow_connect_integration.png" alt="Allow Connect to interact with the bot"/>
+
 1. In the Amazon Connect Contact Center Manager, use the navigation pane on the left hand side to select **Routing** and then **Contact flows**
 
 	![ContactFlowNavigation](images/contact_flows_navigation.png)
@@ -62,9 +66,7 @@ With a Connect instance and a phone number, you can now create the Contact Flow 
 
 1. In the top right corner select **Create contact flow** to open the contact flow editor
 
-1. Name your contact flow `CustomerServiceChatbot` and give it a description
-
-	![ContactFlowNaming](images/contact_flow_naming.png)
+1. Name your contact flow `CustomerServiceChatbot`
 
 1. Expand the **Interact** group of blocks and drag and drop the **Get customer input** block onto the grid
 
@@ -75,17 +77,18 @@ With a Connect instance and a phone number, you can now create the Contact Flow 
 	![ContactFlowWiring](images/contact_flow_wiring.png)
 
 1. Double click on the **Get customer input** block to access its configuration
-	1. Select the **Text to speech (Ad hoc)** input type and enter the below as a welcome message for your callers:
-		` Welcome to the marvelous telco company. How can I help you today?`
-	2. Select **Amazon Lex** input type
-	3. Enter `InternationalPlan` bot name and `dev` Alias
-	5. Click **Save**
 	
-		![ContactFlowInput](images/get_customer_input_prompt.png)
-		
-		![ContactFlowInput](images/get_customer_input_input.png)
+	1. Select the **Text to speech (Ad hoc)** input type and use this welcome message:  ` Welcome to the marvelous telco company. How can I help you today?`
 	
-1. Click on the **down arrow** (![DownArrow](images/down.png)) next to the save button and select **Save & Publish**
+	1. Select **Amazon Lex** input type
+	
+	1. Enter `InternationalPlan` bot name and `dev` alias
+
+	1. Click **Save**
+
+		<img src="images/get_customer_input.png" alt="Get customer input configuration" width="50%" />
+	
+1. Click on the **down arrow** (![DownArrow](images/down.png)) next to the Save button at the top right and select **Save & Publish**
 
 1. Confirm publishing of the workflow in selcting the **Save & publish** button
 </p>
