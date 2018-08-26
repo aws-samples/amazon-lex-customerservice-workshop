@@ -38,7 +38,7 @@ To associate the Amazon Lex bot with your Twilio programmable SMS endpoint, crea
 	* Channel name: `SMSTest`
 	* Channel description: `Twilio SMS channel for dev bot`
 	* KMS key:  `aws/lex`
-	* Alias:  `devt`
+	* Alias:  `dev`
 	* Use the Auth Token and Account SID from earlier
 	* Activate; note the endpoint created for Twilio SMS
 
