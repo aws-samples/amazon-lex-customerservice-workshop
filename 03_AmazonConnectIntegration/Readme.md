@@ -113,36 +113,44 @@ Now you need to associate your new contact flow with your phone number
 ### Test your Amazon Lex enabled Amazon Connect contact flow
 Dial your Amazon Connect contact center phone number to confirm functionality of contact flow and Amazon Lex integration. Tell the virtual service agent **"I'm going to China."**; use 1234 when asked for your pin code.
 
-### Extend contact flow integration to submit dialer ID to Amazon Lex 
-In this last step we are enhancing the customer input configuration of the contact flow to submit the dialer ID to Amazon Lex for authentication.
+### Make phone number available to the bot
+In this last step we are enhancing the customer input configuration of the contact flow to make the caller's phone number available to the bot.
 
  ![ContactFlowNavigation](images/set_session_attributes.png)
 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
-1. Re-open the Amazon Connect Dashboard. Within the [Amazon Connect console](https://console.aws.amazon.com/connect/home?region=us-east-1) select **Overview** and **Login as administrator**
-2. On the left hand navigation select **Routing** **Contact flows**.
+1. Re-open the CCM app; within the [Amazon Connect console](https://console.aws.amazon.com/connect/home?region=us-east-1) select **Overview** and **Login as administrator**
+
+1. On the left hand navigation select **Routing** - **Contact flows**
 
 	![ContactFlowNavigation](images/contact_flows_navigation.png)
 	
-3. Click on the 'CustomerServiceChatbot' flow to open the flow.
+1. Click the `CustomerServiceChatbot` flow to open the flow
 
-4. Double click on the **Get customer input** block to access its configuration.
-5. Scroll to the bottom and under **Session attributes** click **Add a parameter**
-6. Select **Send attribute**
-7. In the **Type** drop-down, select **System**, Enter  `IncomingNumber` in the **Key** field and select **Customer Number** from the **Attribute** drop down.
-8. Click **Add another Parameter**
-9. Enter `Source` as **Key** and `AmazonConnect` as **Value**
-10. Select **Save**
-11. Click on the **down arrow** (![DownArrow](images/down.png)) next to the save button and select **Save & Publish**
+1. Click the **Get customer input** block to access its configuration
+
+1. Scroll to the bottom and under **Session attributes** click **Add an attribute**
+
+1. Select **Use attribute**
+
+1. In the **Type** drop-down, select **System**, enter `IncomingNumber` in the **Destination Key** field and select **Customer Number** from the **Attribute** drop down
+
+1. Click **Add another attribute**
+
+1. Enter `Source` as **Destination Key** and `AmazonConnect` as **Value**
+
+1. Select **Save**
+
+1. Click on the **down arrow** (![DownArrow](images/down.png)) next to the save button and select **Save & Publish**
 	
-12. Confirm publishing of the workflow in selecting the **Save & publish** button.
+1. Confirm publishing of the workflow in selecting the **Save & publish** button
  	![ContactFlowNavigation](images/publish_confirmation.png)
 </details>	
 	
 ### Test your bot with Amazon Connect
-Call your Amazon Connect phone number to interact with your bot over the phone.  Ask the virtual service agent **"What iternational plans do you have?"**. When asked for your pin code enter the last four digits of the phone number you are calling from.	
+Call your Amazon Connect phone number to interact with your bot over the phone.  Ask the virtual service agent **"What international plans do you have?"**. When asked for your pin code enter the last four digits of the phone number you are calling from.	
 	
 
 
