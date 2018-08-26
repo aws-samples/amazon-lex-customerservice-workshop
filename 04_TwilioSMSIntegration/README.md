@@ -54,9 +54,9 @@ To associate the Amazon Lex bot with your Twilio programmable SMS endpoint, crea
 
 ### Test your Amazon Lex bot using Twilio SMS
 
-Now re-test the Amazon Lex integration with Twilio Integrationn enabled. Send anSMS to your Twilio SMS number to confirm functionality. Please note for Twilio trial accounts you need to verify caller ID. Go to home dashboard, then to the manage phone number screen, here in the verify callerID section, activate your phone number with which you intend to send out an SMS to the Twilio phone number. Once you have done that test out the twilio integration by sending a text to the bot. When asked for your pin code enter the last four digits of the mobile number you are calling from.
+Test the bot with Twilio SMS enabled (remember to verify your number with Twilio first).  Send a message and check the response.  Do you see it logged in Twilio?  In Amazon Lex?  Does it get through to the code hook?  When asked for your pin code enter the last four digits of the mobile number you are calling from.
 
-
+    <img src="images/twilio-sms.png" alt="Twilio - Test bot">
 
 
 
