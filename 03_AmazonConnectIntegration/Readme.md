@@ -1,16 +1,14 @@
 # Module 3: Integrate Amazon Lex with Amazon Connect
-In this module you will integrate your Lex bot with Amazon Connect, a contact center service that makes it easy for any business to deliver better customer service at lower cost.
+In this module you will integrate your Amazon Lex bot with Amazon Connect, a service that allows you to create software-defined call centers in minutes.
 
-At completion of this module you will be able to interact with your Lex bot through the plain old telephone service.
-To achieve this you will create a contact center, configure a simple call flow, and assign a public phone number to the flow. 
+Upon completion, you will be able to interact with your bot using a telephone (yes, think PSTN).
+To achieve this you will create a contact center, configure a simple call flow, and assign a phone number to the flow. 
 
 ## Implementation Instructions
 
-Each of the following sections provide an implementation overview and detailed, step-by-step instructions. The overview should provide enough context for you to complete the implementation if you're already familiar with the AWS Management Console or you want to explore the services yourself without following a walkthrough.
+Each of the following sections provide an implementation overview and detailed, step-by-step instructions. The overview should provide enough context for you to complete the implementation if you're already familiar with the AWS Management Console or if you want to explore the services yourself without following a walkthrough.
 
-### Create a new Amazon Conect contact centre instance
-An Amazon Connect instance is the starting point for your contact center.
-
+### Create a new Amazon Conect instance
 Go to the [Amazon Connect Console](https://console.aws.amazon.com/connect/home?region=us-east-1) to create a new virtual contact center instance in the us-east-1 (Virgina) region.
 
 <details>
@@ -137,8 +135,8 @@ In this last step we are enhancing the customer input configuration of the conta
  	![ContactFlowNavigation](images/publish_confirmation.png)
 </details>	
 	
-### Test your Amazon Lex enabled Amazon Connect contact flow
-Now re-test the contact flow and Amazon Lex integration with authentication enabled. Dial your Amazon Connect contact center phone number again to confirm functionality. Ask the virtual service agent **"What iternational plans do you have?"**. When asked for your pin code enter the last four digits of the mobile number you are calling from.	
+### Test your bot with Amazon Connect
+Call your Amazon Connect phone number to interact with your bot over the phone.  Ask the virtual service agent **"What iternational plans do you have?"**. When asked for your pin code enter the last four digits of the phone number you are calling from.	
 	
 
 
