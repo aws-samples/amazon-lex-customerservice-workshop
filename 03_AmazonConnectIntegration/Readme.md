@@ -90,37 +90,28 @@ With a Connect instance and a phone number, you can now create the Contact Flow 
 	
 1. Click on the **down arrow** (![DownArrow](images/down.png)) next to the Save button at the top right and select **Save & Publish**
 
-1. Confirm publishing of the workflow in selcting the **Save & publish** button
+1. Wait for the contact flow to be published successfully
 </p>
 
 </details>
 
 
-### Associate contact flow with phone number
+### Associate Contact Flow with phone number
 Now you need to associate your new contact flow with your phone number
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
-1. Select **Routing** and **Phone Numbers** on the left hand Amazon Connect navigation pane.
-2. Click on the number to edit the contact flow
-3. Search and select the `CustomerServiceChatbot` contact flow in the **Contact flow/IVR** field.
-4. Select **Save** to confirm the contact flow association.
+1. Select **Routing** and **Phone Numbers** on the left hand Amazon Connect navigation pane
+
+1. Click on the number to edit the contact flow
+
+1. Search and select the `CustomerServiceChatbot` contact flow in the **Contact flow/IVR** field
+
+1. Select **Save** to confirm the contact flow association
 </p></details>
 
-### Enable Amazon Lex integration for your contact flow 
-As a final step we need to enable the Amazon Lex integration point for our Amazon Connect instance in the Amazon Connect console.
-
-<details>
-<summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
-
-1. Open the [Amazon Connect console](https://console.aws.amazon.com/connect/home?region=us-east-1) and select your Amazon Connect instance.
-2. Select **Contact flows** on the left hand navigation.
-3. In the **Amazon Lex** section select **+ Add Lex Bot**, select the `InternationalPlan` bot and click on **Save Lex Bots**.
-</details>
-
-
 ### Test your Amazon Lex enabled Amazon Connect contact flow
-Dial your Amazon Connect contact center phone number to confirm functionality of contact flow and Amazon Lex integration. Tell the virtual service agent **"I am going to China."**, use 1234 when asked for your pin code.
+Dial your Amazon Connect contact center phone number to confirm functionality of contact flow and Amazon Lex integration. Tell the virtual service agent **"I'm going to China."**; use 1234 when asked for your pin code.
 
 ### Extend contact flow integration to submit dialer ID to Amazon Lex 
 In this last step we are enhancing the customer input configuration of the contact flow to submit the dialer ID to Amazon Lex for authentication.
