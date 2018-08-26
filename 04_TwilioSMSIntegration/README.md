@@ -44,12 +44,11 @@ To associate the Amazon Lex bot with your Twilio programmable SMS endpoint, crea
 
     <img src="images/twilio-channel.png" alt="Amazon Lex - Twilio SMS Channel activation">
 
-1. Once the Amazon Lex part is setup. On the Twilio console, we connect the Twilio SMS endpoint to the Amazon Lex bot.
+1. Next, we need to connect the Twilio SMS endpoint to the Amazon Lex bot using the Twilio Console
 
-1. Login to your Twilio again. Go to Managed Numbers Screen again.
+1. From Manage Numbers - Active Numbers, select the number to configure the Messaging webhook with the callback URL provided by Amazon Lex above
 
-1. Under the Active number screen, Messenging tab update the webhook to the Channel endpoint you received once you activated the channed in the Amazon Lex console.
-![Alt text](https://s3.amazonaws.com/lexworkshop/twilio2.png "Optional title")
+    <img src="images/twilio-webhook.png" alt="Twilio - Update messaging webhook">
 
 </p></details>
 
