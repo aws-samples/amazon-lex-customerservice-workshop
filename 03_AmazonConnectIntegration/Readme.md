@@ -31,15 +31,21 @@ Go to the [Amazon Connect Console](https://console.aws.amazon.com/connect/home?r
 </p></details>
 
 ### Claim a phone number for your Amazon Connect instance
-Once your Amazon Connect instance has been created, select **Get started** to select a phone number. 
+Once your Amazon Connect instance has been created, click **Get started** to select a phone number. 
 <details>
 <summary><strong>Step-by-step instructions (expand for details)</strong></summary><p>
 
-1. Select **Get started** to open the Amazon Connect Contact Center Manager (CCM) Welcome screen.
-2. Select **Let's go** to claim a phone number.
-3. Select **United States +1**, **Direct Dial**, and choose a phone number from the numbers provided. Select **Next**
-4. Dial the phone number you selected in step 3 from another phone (e.g. your mobile phone) and choose **1** from the voice menu to connect with an agent. You can then use the Amazon Connect Contact Control Panel to accept the call.
-5. Select **Continue**. This will open the Amazon Connect console.
+1. Select **Get started** to open the Amazon Connect Contact Center Manager (CCM) welcome screen
+
+1. Select **Let's go** to claim a phone number
+
+1. Select **United States +1**, **Direct Dial**, and choose a phone number from the numbers provided
+
+1. Dial the phone number you selected in step 3 from another phone (e.g. your mobile phone) and choose **1** from the voice menu to connect with an agent; you can then use the Amazon Connect Contact Control Panel to accept the call
+	> It may take a few minutes before the claimed phone number is active.
+
+1. Choose **Continue** to get to the Amazon Connect App; poke around a bit to see what's available
+	> If you accepted a call, it should show up under the Contact search option.
 </p></details>
 
 ### Configure contact flow
