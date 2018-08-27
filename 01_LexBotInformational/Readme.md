@@ -158,7 +158,7 @@ Save the intent, build and test the bot in the Lex Console.
 
 1. Click **Build** at the top right of the page to build the bot 
  
-1. Once the build complete, use the **Test Bot** window to test different ways customer may ask about international plans for the countries they are traveling to. Verify that the bot is able to detect the intent. 
+1. Once the build completes, use the **Test Bot** window to test different ways customer may ask about international plans for the countries they are traveling to. Verify that the bot is able to detect the intent. 
 
 	In the below example, the user utterance contains the slot value, which Lex was able to detect: 
 
@@ -186,7 +186,7 @@ The Lambda function that can respond to the international plan customer request 
 
 	<img src="images/plan-catalog-table.png" alt="ddb plan catalogue table" width="100%">
 
-1. You should see a list of pre-populated fake international plans. (Additional columns such as price per text are provided so you can use it to extend the bot. e.g. add a `GetPlanDetails` intent)
+1. You should see a list of pre-populated fake international plans. (Additional columns such as price per text are provided so you can use them to extend the bot. e.g. add a `GetPlanDetails` intent)
 
 	<img src="images/plan-catalog-details.png" alt="configure the pin slot" width="100%">
 
@@ -199,7 +199,7 @@ Now we are ready to configure Lex to send the detected intent and slot values fr
 
 1. In the **Fulfillment** section of the intent, choose **AWS Lambda function** and use the selector to pick the `lex-workshop-LexBotHandler` function
 	
-	<img src="images/pick-lambda.png" alt="" width="60%">
+	<img src="images/pick-lambda.png" alt="" width="90%">
 
 	> There are a handful of other Lambda functions the CloudFormation template created and that they all begin with `lex-workshop`, so be sure to select the right one.
 

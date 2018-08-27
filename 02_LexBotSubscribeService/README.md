@@ -7,14 +7,14 @@ You have already learned to define ***intents***, collect user inputs by leverag
 <a name="session-context"></a>
 ## Maintaining conversation session context
 
-Now the bot is capable of informing your customer the options they can add to the account, the next step is allow user to **choose a plan and add it to their account**. This serves an example for another common use case for chatbots: transactional requests such as updating account information, fulfill orders, etc. 
+Now the bot is capable of informing your customer the options they can add to the account, the next step is allow the user to **choose a plan and add it to their account**. This serves an example for another common use case for chatbots: transactional requests such as updating account information, fulfill orders, etc. 
 
 We can create a separate intent to apply the chosen plan into the user's account. This bring up the question of maintaining session context. During the same session, if the user asks to subscribe to a particular plan after hearing the list of options for a given country, the bot should maintain context and know which country is of interest when applying the plan. 
 
 You can achieve this by using **Session Attributes**. Read [here](http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html) if you want more details of how session attributes work. You can set session attributes in the Lambda function that fulfills the bot logic. 
 
 
-In the `ListInternationalPlans` intent we built in the last module, the lambda function is setting the `country` session attribute as part of the response, so subsequent conversation will have that context: 
+In the `ListInternationalPlans` intent we built in the last module, the Lambda function is setting the `country` session attribute as part of the response, so subsequent conversation will have that context: 
 
 <img src="images/list-intent-session.png" alt="session attributes in the list intent" width="50%">
 
@@ -27,7 +27,7 @@ This type of transactional requests also require your bot to be able to identify
 
 The way you identify users can vary depend on where and how your Lex bot is deployed. 
 
-If your Amazon Lex bot is deployed as a **Facebook Messenger** or **Slack** bot, the users are already logged in into Facebook/Slack respectively, and these channels will pass the user ID on these platforms into your bot. This means you need to build a backend that can correlate the Facebook/Slack user to your company's user management system. 
+If your Amazon Lex bot is deployed as a **Facebook Messenger** or **Slack** bot, users are already logged in into Facebook/Slack respectively, and these channels will pass the user ID on these platforms into your bot. This means you need to build a backend that can correlate the Facebook/Slack user to your company's user management system. 
 
 If your Lex bot is bulit as part of your **mobile/web app**, then you can rely on the normal authentication methods of your app for users to log in.
 
@@ -35,7 +35,7 @@ This workshop shows an example if your Lex bot is deployed with either **Amazon 
 
 ## Implementation Instructions
 
-### 2A: Add intent to apply international plans to user's account
+### 2A: Add intent to apply international plans to the user's account
 
 Let's start by defining the conversational interface of adding an international travel plan to the user's account. 
 
@@ -49,7 +49,7 @@ Let's start by defining the conversational interface of adding an international 
 
 	* Name it `Country`
 	* Use built-in type `AMAZON.Country`
-	* For prompt, use `which country are you going to?`
+	* For prompt, use `Which country are you going to?`
 
 	</details>
 
@@ -72,7 +72,7 @@ Let's start by defining the conversational interface of adding an international 
 
 	1. Click **Add Slot to intent**
 	
-	1. Name the slot `planName` and use `which plan would you like to apply to your account?` for slot prompt
+	1. Name the slot `planName` and use `Which plan would you like to apply to your account?` for slot prompt
 
 		<img src="images/plan-name-slot.png" alt="create new slot screenshot" width="100%">
 
@@ -85,19 +85,19 @@ Let's start by defining the conversational interface of adding an international 
 	1. For start date:
 		* Name it `startDate`
 		* Use built-in type `AMAZON.DATE`
-		* For prompt, use 	`when do you like {planName} plan to start?`	
+		* For prompt, use 	`When would you like {planName} plan to start?`	
 	1. For duration:
 		* Name it `numOfWeeks`
 		* Use built-in type `AMAZON.NUBMER`
-		* For prompt, use `how many weeks will you need?`
+		* For prompt, use `How many weeks will you need?`
 
 	</details>
 
-1. Ensure to check the **Required** checkbox for all the 4 slots
+1. Confirm that all 4 slots are marked **Required**
 
 	<img src="images/configure-slots.png" alt="create new slot screenshot" width="100%">
 
-1. Add sample utterances:
+1. Add sample utterances (remember to add them one at a time):
 
 	```
 	​{planName}​
@@ -119,7 +119,7 @@ Let's start by defining the conversational interface of adding an international 
 	1. Fill in for **Confirm**
 	
 		```
-		To confirm, you want to apply {planName} plan in {Country} for {numOfWeeks} weeks starting {startDate}, is that right?
+		You want to use the {planName} plan in {Country} for {numOfWeeks} weeks starting {startDate}, is that right?
 		```
 		
 	1. For **Cancel (if the user says "no")**, fill in 
@@ -128,7 +128,7 @@ Let's start by defining the conversational interface of adding an international 
 		Ok. {planName} plan will not be added. How else can I help you?
 		```
 		
-		<img src="images/confirmation-prompt.png" alt="configure validation lambda screenshot" width="100%">
+		<img src="images/confirmation-prompt.png" alt="configure validation Lambda screenshot" width="100%">
 	</details>
 
 
@@ -148,15 +148,15 @@ Let's start by defining the conversational interface of adding an international 
 
 #### Validate input with AWS Lambda
 
-In the last module, we used AWS Lambda to fulfill user's intent. Another powerful integration is using Lambda functions to **validate user's inputs**. When you enable this feature, Lex invokes the specified Lambda function on each user input (utterance) after Amazon Lex understands the intent. 
+In the last module, we used AWS Lambda to fulfill the user's intent. Another powerful integration is using Lambda functions to **validate user inputs**. When you enable this feature, Lex invokes the specified Lambda function on each user input (utterance) after Amazon Lex recognizes the intent. 
 
-Here are a few things this feature can help with our `ApplyTravelPlan` intent
+Here's how we can use this for our `ApplyTravelPlan` intent:
 
-* As soon as Lex recognize user's intent to subscribe to a plan, the Lambda function can check if the user has been authenticated (through [session attributes](#session-context)). If not, **force the user to verify their identity before proceeding**
+* Once Lex recognizes the intent to subscribe to a plan, the Lambda function can check if the user has been authenticated (through [session attributes](#session-context)). If not, **force the user to verify their identity before proceeding**.
 
-* Validate the `startDate` user specified is later than today's date
+* Validate that the `startDate` is in the future.
 
-* Validate the number of weeks user can apply their plan is between 0 and 52.  
+* Validate that the number of weeks is between 0 and 52.
 
 * Validate there's a corresponding plan for user's specified country.    
 
@@ -165,13 +165,13 @@ Now, configure the `lex-workshop-LexBotHandler` function for input validation fo
 <details>
 <summary><strong> Expand for detailed instruction </strong></summary><p>
 	
-1. Under **Lambda initialization and validation** setting for the intent, pick the `lex-workshop-LexBotHandler` lambda function
+1. Under **Lambda initialization and validation** setting for the `ApplyTravelPlan` intent, pick the `lex-workshop-LexBotHandler` Lambda function
 	
-	<img src="images/validation-lambda.png" alt="configure validation lambda screenshot" width="70%">
+	<img src="images/validation-lambda.png" alt="configure validation Lambda screenshot" width="70%">
 	
 1. Click **Save Intent** to save the intent configuration
 	
-1. Build the bot and test it again. Note that the lambda validation is kicking in to force the user to verify their identity before proceeding:
+1. Build the bot and test it again. Note that the Lambda validation is kicking in to force the user to verify their identity before proceeding:
 	
 	<img src="images/force-authentication-demo.png" alt="test bot that enforces authentication" width="50%">
 		
@@ -188,16 +188,13 @@ To handle the identity verification flow, create a new intent with a slot for us
 
 1. Create a new intent `VerifyIdentity`
 
-1. Create a `pin` slot with a built-in slot type `AMAZON.FOUR_DIGIT_NUMBER` with a prompt `What's your user pin?`
+1. Create a `pin` slot with a built-in slot type `AMAZON.FOUR_DIGIT_NUMBER` with a prompt `What's your pin code?`
 
 	<img src="images/pin-slot.png" alt="configure the pin slot" width="100%">
 
-1. Make sure the **Required** checkbox is checked for the slot
+1. Be sure to mark it **Required**
 
-	<img src="images/pin-slot-required.png" alt="configure the pin slot" width="100%">
-
-
-1. Add sample utterances for the intent:
+1. Add sample utterances for the intent (one at a time):
 
 	```
 	{pin}
@@ -205,7 +202,7 @@ To handle the identity verification flow, create a new intent with a slot for us
 	verify my identity
 	```
 
-1. Configure `lex-workshop-LexBotHandler` lambda function for intent fulfillment: 
+1. Configure `lex-workshop-LexBotHandler` Lambda function for intent fulfillment: 
 
 	<img src="images/configure-identify-intent.png" alt="configure the pin slot" width="100%">
 
@@ -217,14 +214,14 @@ To handle the identity verification flow, create a new intent with a slot for us
 
 > Note for testing the bot in Lex Console: 
 > 
-> When the lex bot is integrated with phone call (Amazon Connect) or SMS text (Twilio), the user pin verification logic in the lambda function uses the phone number of the user to look up the user and verify the corresponding pin.
+> When the lex bot is integrated with phone call (Amazon Connect) or SMS text (Twilio), the user pin verification logic in the Lambda function uses the phone number of the user to look up the user and verify the corresponding pin.
 > 
-> In the bot testing window of the Lex Console, the userid is randomly generated by the Console and there's no "phone number" we can use to look up the user. To test the conversation flow during development, use the fake pin `1234`
+> In the bot testing window of the Lex Console, the userId is randomly generated by the Console and there's no "phone number" we can use to look up the user. To test the conversation flow during development, use the fake pin `1234`
 
 
 ### 2C: Configure fulfillment for adding international plans 
 
-Now we are ready to fulfill user's request to add plans to their account! Configure the fulfillment for the `ApplyTravelPlan` intent to use the same lambda function `lex-workshop-LexBotHandler`
+Now we are ready to fulfill the user's request to add plans to their account! Configure the fulfillment for the `ApplyTravelPlan` intent to use the same Lambda function `lex-workshop-LexBotHandler`
 
 
 <details>
@@ -232,11 +229,13 @@ Now we are ready to fulfill user's request to add plans to their account! Config
 
 1. Go to the `ApplyTravelPlan` intent
 
-1. Under fulfillment, select `lex-workshop-LexBotHandler` lambda function
+1. Under Fulfillment, select the `lex-workshop-LexBotHandler` Lambda function (you may need to grant permissions as before)
 
-1. We can add a **follow-up message** for when the lambda function successfully add the plan to user's account: 
-	* Follow-up message: `{planName} plan in {Country} has been added to your account. Can I help you with anything else?`
-	* Cancel: `Ok. Thank you. Have a nice day.`
+1. We can add a **response** for when the Lambda function successfully adds the plan to the user's account: 
+	* Response message: `{planName} plan in {Country} has been added to your account.  Can I help you with anything else today?`
+	* Wait for user reply: checked
+	* If user says "no" message:  `Thank you. Have a nice day.`	
+	* (For spontaneity, you can add multiple messages and Lex will choose one at runtime.)
 
 	<img src="images/fulfill-plan-configuration.png" alt="configure the pin slot" width="100%">
 
@@ -259,7 +258,7 @@ We can now test how these intents can work together to provide a streamlined cus
 
 <img src="images/test-full-flow.png" alt="configure the pin slot" width="50%">
 
-Note that by leveraging [session attributes](#session-context), the Lex bot is able to transition between different intents and "remember" what information user has already provided. In the above example, after user authentication, the bot is able to pick up where it left off and continue with fulfilling the intent to add the plan to user's account. 
+Note that by leveraging [session attributes](#session-context), the Lex bot is able to transition between different intents and "remember" what information the user has already provided. In the above example, after user authentication, the bot is able to pick up where it left off and continue with fulfilling the intent to add the plan to the user's account. 
 <details>
 <summary><strong> For detailed explanation on how this works, expand here</strong></summary><p>
 
@@ -267,7 +266,7 @@ If we take a look at the **Inspect Response** tab at this point, notice the belo
 
 * After verifying the user, the bot remembers the user was in progress to add a plan, and set the `intentName` to `ApplyTravelPlan` (see yellow highlight)
 * After verifying the user, the bot sets the `sessionAttributes` to mark the logged in user (see red highlight)
-* After verifying the user, the bot identifies inputs that user has provided in previous intents (e.g. `Country` and `planName`) and prompt the user to collect information that haven't been provided (see green highlight)
+* After verifying the user, the bot identifies inputs that the user has provided in previous intents (e.g. `Country` and `planName`) and prompts the user to collect information that hasn't been provided (see green highlight)
 
 
 <img src="images/test-full-flow-inspect.png" alt="configure the pin slot" width="50%">
@@ -297,9 +296,9 @@ You can also verify the user's plan selections are being persisted in DynamoDB b
 
 ### 2E: Publish the bot 
 
-An alias is a pointer to a specific version of an Amazon Lex bot. Use an alias to allow client applications to point to a tested version of the bot while you iterate on bot design (e.g. you might have different aliases for `prod`, `staging` and `dev` to represent different stages.)
+An alias is a pointer to a specific version of an Amazon Lex bot. Use an alias to allow client applications to point to a tested version of the bot while you iterate on bot design (e.g. you might have different aliases for `prod`, `staging` and `dev` to represent different stages).
 
-Here we will publish the bot with alias `dev`.
+We will publish the bot with a `dev` alias from the Lex console.
 
 <details>
 <summary><strong> Expand for detailed instruction </strong></summary><p>
