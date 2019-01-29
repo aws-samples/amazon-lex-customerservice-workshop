@@ -8,7 +8,7 @@ To achieve this you will create a contact center, configure a simple call flow, 
 
 Each of the following sections provide an implementation overview and detailed, step-by-step instructions. The overview should provide enough context for you to complete the implementation if you're already familiar with the AWS Management Console or if you want to explore the services yourself without following a walkthrough.
 
-### Create a new Amazon Conect instance
+### Create a new Amazon Connect instance
 Go to the [Amazon Connect Console](https://console.aws.amazon.com/connect/home?region=us-east-1) to create a new virtual contact center instance in the us-east-1 (Virgina) region.
 
 <details>
@@ -151,8 +151,3 @@ In this last step we are enhancing the customer input configuration of the conta
 	
 ### Test your bot with Amazon Connect
 Call your Amazon Connect phone number to interact with your bot over the phone.  Ask the virtual service agent **"What international plans do you have?"**. When asked for your pin code enter the last four digits of the phone number you are calling from.	
-	
-
-
-
-
