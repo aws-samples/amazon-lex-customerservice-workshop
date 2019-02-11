@@ -72,7 +72,7 @@ Resources:
       Description: "Lambda handler for travel plan bot"
       FunctionName: !Sub "${AWS::StackName}-LexBotHandler"
       CodeUri: ../lambda-functions/bot-handler
-      Runtime: nodejs4.3
+      Runtime: nodejs8.10
       MemorySize: 256
       Timeout: 20
       Handler: index.handler
@@ -95,7 +95,7 @@ Resources:
 #    Properties:
 #      Description: "Lambda function to update the user DDB table when cognito user signs up."
 #      CodeUri: ../lambda-functions/cognito-trigger
-#      Runtime: nodejs4.3
+#      Runtime: nodejs8.10
 #      MemorySize: 256
 #      Timeout: 20
 #      Handler: index.handler
@@ -115,7 +115,7 @@ Resources:
     Properties:
       Description: "Lambda function to load the plan catalog."
       CodeUri: ../lambda-functions/load-data
-      Runtime: nodejs4.3
+      Runtime: nodejs8.10
       MemorySize: 256
       Timeout: 20
       Handler: index.handler
