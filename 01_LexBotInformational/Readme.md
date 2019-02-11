@@ -25,7 +25,7 @@ In this step, we will use a CloudFormation template to provision the AWS Lambda 
 
 Region| Region Code | Launch
 ------|------|-------
-US East (N. Virginia) |   <span style="font-family:'Courier';">us-east-1</span> | [![Launch Module 1 in us-east-1](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/images/cloudformation-launch-stack-button.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=lex-workshop&templateURL=https://s3.amazonaws.com/lex-customerservice-workshop/setup.yaml)
+US East (N. Virginia) |   <span style="font-family:'Courier';">us-east-1</span> | [![Launch Module 1 in us-east-1](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/images/cloudformation-launch-stack-button.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=lex-workshop&templateURL=https://s3.amazonaws.com/lex-customerservice-workshop/setup-node8.yaml)
 
 
 <details>
