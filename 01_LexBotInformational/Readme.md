@@ -25,8 +25,7 @@ In this step, we will use a CloudFormation template to provision the AWS Lambda 
 
 Region| Region Code | Launch
 ------|------|-------
-US East (N. Virginia) |   <span style="font-family:'Courier';">us-east-1</span> | [![Launch Module 1 in us-east-1](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/images/cloudformation-launch-stack-button.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=lex-workshop&templateURL=https://s3.amazonaws.com/lex-customerservice-workshop/setup-node12.yaml)
-
+US East (N. Virginia) |   <span style="font-family:'Courier';">us-east-1</span> | [![Launch Module 1 in us-east-1](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/images/cloudformation-launch-stack-button.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=lex-workshop&templateURL=https://lex-customer-service-workshop.s3.amazonaws.com/setup.yaml)
 
 <details>
 <summary><strong>CloudFormation Launch Instructions (expand for details)</strong></summary><p>
@@ -39,7 +38,7 @@ US East (N. Virginia) |   <span style="font-family:'Courier';">us-east-1</span> 
 
 1. On the Options page, leave all the defaults and click **Next**.
 
-1. On the Review page, check the boxes to acknowledge that CloudFormation will create IAM resources.
+1. On the Review page, check all the boxes to acknowledge that CloudFormation will create IAM resources.
 
 	<img src="images/cloudformation-changeset.png" alt="" width="120%">
 
